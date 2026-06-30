@@ -1,0 +1,15 @@
+<workspace name="GFM_Test" version="5.0.1" crc="83399458">
+  <projects>
+    <project type="library" name="rezonance" filepath=".\pscad_module\rezonance.pslx" />
+    <project type="project" name="GFMBESS_PSCAD502_20250513" filepath=".\GFMBESS_PSCAD502_20250513.pscx" />
+  </projects>
+  <simulations />
+  <pmr />
+  <messagegrid expanded="">
+    <column name="Icon" />
+    <column name="Id" />
+    <column name="Component" />
+    <column name="Namespace" />
+    <column name="Description" />
+  </messagegrid>
+</workspace>

@@ -1,0 +1,6 @@
+<Meta name="rezonance">
+  <messagelist />
+  <ViewContext>
+    <Window defn="rezonance:Main" call="0" />
+  </ViewContext>
+</Meta>

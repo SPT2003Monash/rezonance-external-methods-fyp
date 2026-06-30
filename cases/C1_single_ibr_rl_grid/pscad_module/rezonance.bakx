@@ -1,0 +1,1410 @@
+<project name="rezonance" version="5.0.1" schema="" Target="Library">
+  <paramlist name="Settings">
+    <param name="creator" value="jmes0006,1716952630" />
+    <param name="time_duration" value="0.5" />
+    <param name="time_step" value="50" />
+    <param name="sample_step" value="250" />
+    <param name="chatter_threshold" value=".001" />
+    <param name="branch_threshold" value=".0005" />
+    <param name="StartType" value="0" />
+    <param name="startup_filename" value="$(Namespace).snp" />
+    <param name="PlotType" value="0" />
+    <param name="output_filename" value="$(Namespace).out" />
+    <param name="SnapType" value="0" />
+    <param name="SnapTime" value="0.3" />
+    <param name="snapshot_filename" value="$(Namespace).snp" />
+    <param name="MrunType" value="0" />
+    <param name="Mruns" value="1" />
+    <param name="Scenario" value="" />
+    <param name="Advanced" value="14335" />
+    <param name="sparsity_threshold" value="200" />
+    <param name="Options" value="16" />
+    <param name="Build" value="18" />
+    <param name="Warn" value="0" />
+    <param name="Check" value="0" />
+    <param name="Debug" value="0" />
+    <param name="description" value="" />
+    <param name="revisor" value="xersh, 1762923506" />
+    <param name="labels" value="" />
+    <param name="Preprocessor" value="" />
+  </paramlist>
+  <Layers />
+  <List classid="Settings" />
+  <bookmarks />
+  <GlobalSubstitutions name="Default">
+    <List classid="Sub" />
+    <List classid="ValueSet" />
+    <paramlist>
+      <param name="Current" value="" />
+    </paramlist>
+  </GlobalSubstitutions>
+  <definitions>
+    <Definition classid="StationDefn" name="DS" id="946430505" group="" url="" version="" build="" crc="49399721" view="false">
+      <paramlist name="">
+        <param name="Description" value="" />
+      </paramlist>
+      <schematic classid="StationCanvas">
+        <paramlist>
+          <param name="show_grid" value="0" />
+          <param name="size" value="0" />
+          <param name="orient" value="1" />
+          <param name="show_border" value="0" />
+          <param name="monitor_bus_voltage" value="0" />
+          <param name="show_signal" value="0" />
+          <param name="show_virtual" value="0" />
+          <param name="show_sequence" value="0" />
+          <param name="auto_sequence" value="1" />
+          <param name="bus_expand_x" value="8" />
+          <param name="bus_expand_y" value="8" />
+          <param name="bus_length" value="4" />
+        </paramlist>
+        <grouping />
+        <Wire classid="Branch" id="2115917254" name="Main" x="180" y="180" w="66" h="82" orient="0" disable="false" defn="Main" recv="-1" send="-1" back="-1">
+          <vertex x="0" y="0" />
+          <vertex x="0" y="18" />
+          <vertex x="54" y="54" />
+          <vertex x="54" y="72" />
+          <User classid="UserCmp" id="1540430437" name="rezonance:Main" x="0" y="0" w="0" h="0" z="-1" orient="0" defn="rezonance:Main" link="-1" q="4" disable="false">
+            <paramlist name="" link="-1" crc="4361682" />
+          </User>
+        </Wire>
+      </schematic>
+    </Definition>
+    <Definition classid="UserCmpDefn" name="Main" id="533249103" group="" url="" version="" build="" crc="118994916" view="false" date="0">
+      <paramlist name="">
+        <param name="Description" value="" />
+      </paramlist>
+      <form name="" w="320" h="400" splitter="60" />
+      <graphics viewBox="-200 -200 200 200" size="2">
+        <Gfx classid="Graphics.Rectangle" id="227803514" x="-36" y="-36" w="72" h="72">
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="dasharray" value="0" />
+            <param name="thickness" value="0" />
+            <param name="port" value="" />
+            <param name="fill_style" value="0" />
+            <param name="fill_fg" value="Black" />
+            <param name="fill_bg" value="Black" />
+            <param name="cond" value="true" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Text" id="1397329326" x="0" y="0">
+          <paramlist>
+            <param name="text" value="%:Name" />
+            <param name="anchor" value="0" />
+            <param name="full_font" value="Tahoma, 13world" />
+            <param name="angle" value="0" />
+            <param name="color" value="Black" />
+            <param name="cond" value="true" />
+          </paramlist>
+        </Gfx>
+      </graphics>
+      <schematic classid="UserCanvas">
+        <paramlist>
+          <param name="show_grid" value="0" />
+          <param name="size" value="0" />
+          <param name="orient" value="1" />
+          <param name="show_border" value="0" />
+          <param name="monitor_bus_voltage" value="0" />
+          <param name="show_signal" value="0" />
+          <param name="show_virtual" value="0" />
+          <param name="show_sequence" value="0" />
+          <param name="auto_sequence" value="1" />
+          <param name="bus_expand_x" value="8" />
+          <param name="bus_expand_y" value="8" />
+          <param name="bus_length" value="4" />
+          <param name="show_terminals" value="0" />
+          <param name="virtual_filter" value="" />
+          <param name="animation_freq" value="500" />
+        </paramlist>
+        <grouping />
+        <Sticky classid="Sticky" x="18" y="18" w="432" h="144" id="726879440">
+          <paramlist>
+            <param name="font" value="1" />
+            <param name="align" value="0" />
+            <param name="style" value="1" />
+            <param name="arrows" value="0" />
+            <param name="fg_color" value="0" />
+            <param name="bg_color" value="15792890" />
+            <param name="full_font" value="Tahoma, 9pt" />
+            <param name="opacity" value="25" />
+            <param name="fg_color_adv" value="#FF000000" />
+            <param name="bg_color_adv" value="#FFFAFAF0" />
+            <param name="hl_color_adv" value="#FFFFFF00" />
+            <param name="bdr_color_adv" value="#FF95918C" />
+          </paramlist><![CDATA[Rezonance PSCAD Library
+Version 0.4.1.3 - 30 January, 2026
+
+This library is required to interface with the Rezonance application.
+
+Use the appropriate .lib file with this library.
+
+GridZync, Monash University]]></Sticky>
+        <User classid="UserCmp" id="1242204693" name="rezonance:RZ" x="216" y="252" w="152" h="78" z="-1" orient="0" defn="rezonance:RZ" link="-1" q="4" disable="false">
+          <paramlist name="" link="-1" crc="408294">
+            <param name="enable" value="1" />
+            <param name="ena_a" value="1" />
+            <param name="ena_b" value="1" />
+            <param name="loc_name" value="Bus 1" />
+            <param name="sys_a_name" value="Device A" />
+            <param name="sys_b_name" value="Device B" />
+            <param name="b_show_advanced" value="1" />
+            <param name="b_dev_options" value="0" />
+            <param name="f_fund" value="50" />
+            <param name="vbase" value="500" />
+            <param name="sys_a_sbase" value="100" />
+            <param name="sys_b_sbase" value="100" />
+            <param name="sys_z_a" value="(0.02, 0.1)" />
+            <param name="sys_z_b" value="(0.02, 0.1)" />
+            <param name="auto_init_phi_kp" value="1" />
+            <param name="auto_init_phi_ki" value="10" />
+            <param name="man_init_mag" value="1.0" />
+            <param name="man_init_phi" value="0.0" />
+            <param name="P_AB_out_init_mw" value="0.0" />
+            <param name="Q_AB_out_init_mvar" value="0.0" />
+            <param name="Rshc" value="1e-6" />
+            <param name="Gopc" value="1e-12" />
+            <param name="start_time" value="5" />
+            <param name="sys_split" value="0" />
+            <param name="start_mode" value="0" />
+            <param name="frame_mode" value="0" />
+            <param name="ref_angle" value="0.0" />
+            <param name="auto_init_mag_kp" value="1" />
+            <param name="auto_init_mag_ki" value="10" />
+            <param name="inject_mag" value="1e-3" />
+            <param name="inject_cycles" value="3" />
+            <param name="ramp_cycles" value="1" />
+            <param name="exc_type" value="0" />
+            <param name="input_mode" value="0" />
+            <param name="f_array_fname" value="f_array.txt" />
+            <param name="distrib_type" value="1" />
+            <param name="f_lo" value="1" />
+            <param name="f_hi" value="1000" />
+            <param name="f_res" value="1" />
+            <param name="fdim" value="1001" />
+            <param name="inject_vi_type" value="0" />
+            <param name="inject_d" value="0" />
+            <param name="inject_q" value="0" />
+            <param name="inject_p" value="0" />
+            <param name="inject_n" value="0" />
+            <param name="RTOL" value="1e-20" />
+            <param name="out_name" value="_" />
+            <param name="progress_time_res" value="0.25" />
+            <param name="arr_f_fname" value="in_arr_f.txt" />
+            <param name="f_num" value="1001" />
+            <param name="op_mode" value="1" />
+            <param name="ramp_time_min" value="0.5" />
+            <param name="os_factor" value="5" />
+            <param name="show_dbg" value="0" />
+            <param name="mt_mag_mode" value="0" />
+            <param name="mt_var_random_phi" value="0" />
+          </paramlist>
+        </User>
+        <User classid="UserCmp" id="1330116620" name="master:ground" x="216" y="270" w="34" h="26" z="-1" orient="0" defn="master:ground" link="-1" q="4" disable="false">
+          <paramlist name="" link="-1" crc="28206164" />
+        </User>
+      </schematic>
+    </Definition>
+    <Definition classid="UserCmpDefn" name="RZ" id="121521743" group="" url="" version="" build="" crc="125569908" view="false" date="0">
+      <paramlist name="">
+        <param name="Description" value="Rezonance module" />
+      </paramlist>
+      <script>
+        <segment name="Dsdyn" id="1226978123" classid="CoreSegment"><![CDATA[#STORAGE LOGICAL:3 INTEGER:${8+4} REAL:${49+522} STOR:36 RTCL:7 RTCI:${14+fdim+3} RTCF:${12+fdim+10} STXFRI:${38+fdim} STXFRF:355 STXFRC:15
+
+#BEGIN
+#LOCAL INTEGER BR_S_
+#LOCAL INTEGER BR_MA_
+#LOCAL INTEGER BR_MB_
+
+#LOCAL INTEGER BR_EA_
+#LOCAL INTEGER BR_ZA_
+#LOCAL INTEGER BR_CA_
+#LOCAL INTEGER BR_IA_
+
+#LOCAL INTEGER BR_EB_
+#LOCAL INTEGER BR_ZB_
+#LOCAL INTEGER BR_CB_
+#LOCAL INTEGER BR_IB_
+
+#LOCAL INTEGER NA_
+#LOCAL INTEGER NB_
+#LOCAL INTEGER NAM_
+#LOCAL INTEGER NBM_
+#LOCAL INTEGER NAI_
+#LOCAL INTEGER NBI_
+#LOCAL INTEGER NAIC_
+#LOCAL INTEGER NBIC_
+#LOCAL INTEGER NS_
+
+      NA_ = -1
+      NB_ = -1
+      NAM_ = -1
+      NBM_ = -1
+      NAI_ = -1
+      NBI_ = -1
+      NAIC_ = -1
+      NBIC_ = -1
+      NS_ = -1
+
+      BR_S_ = -1
+      BR_MA_ = -1
+      BR_MB_ = -1
+      
+      BR_EA_ = -1
+      BR_ZA_ = -1
+      BR_CA_ = -1
+      BR_IA_ = -1
+      
+      BR_ZB_ = -1
+      BR_CB_ = -1
+      BR_EB_ = -1
+      BR_IB_ = -1
+
+      NA_ = $A(1)
+      NB_ = $B(1)
+      NAM_ = $AM(1)
+      NBM_ = $BM(1)
+
+      BR_MA_ = $BR_MA(1)
+      BR_MB_ = $BR_MB(1)
+
+#IF ($series > 0)
+
+
+  #IF ($inject_vi_type <= $RTOL)
+      BR_EA_ = $BR_EA(1)
+
+  #ELSEIF (1.0 - $inject_vi_type <= $RTOL)
+      BR_S_ = $BR_S(1)
+      BR_IB_ = $BR_IB(1)
+
+  #ELSE
+      BR_EA_ = $BR_EA(1)
+      BR_IB_ = $BR_IB(1)
+
+  #ENDIF
+
+#ELSEIF ($split > 0)
+  #IF ($inject_vi_type >= $RTOL)
+      BR_IA_ = $BR_IA(1)
+      BR_IB_ = $BR_IB(1)
+  #ENDIF
+      BR_S_ = $BR_S(1)
+      
+      BR_EA_ = $BR_EA(1)
+      BR_ZA_ = $BR_ZA(1)
+      BR_CA_ = $BR_CA(1)
+      
+      BR_EB_ = $BR_EB(1)
+      BR_ZB_ = $BR_ZB(1)
+      BR_CB_ = $BR_CB(1)
+
+#ELSE 
+      BR_S_ = $BR_S(1)
+#ENDIF
+
+#COMPONENTID
+      CALL BGN_D_RZ(
+     *$series, $split, $bypass, $start_mode, $ena_a, $ena_b,
+     *$enable, $inject_vi_type, $start_time, $SS, BR_S_, BR_MA_, BR_MB_,
+     *BR_EA_, BR_EB_, BR_CA_, BR_CB_, BR_IA_, BR_IB_, BR_ZA_, BR_ZB_,
+     *NA_, NB_, NS_, $vbase, $sys_a_sbase, $sys_b_sbase, $f_fund,
+     *$sys_z_a, $sys_z_b, $Rshc, $Gopc, $RTOL,
+     *$b_show_advanced, $sys_split, $frame_mode,
+     *$ref_angle, $auto_init_phi_kp, $auto_init_phi_ki, $man_init_phi,
+     *$auto_init_mag_kp, $auto_init_mag_ki, $man_init_mag,
+     *$P_AB_out_init_mw, $Q_AB_out_init_mvar, $inject_mag,
+     *$inject_cycles, $ramp_cycles, $ramp_time_min, 
+     *$exc_type, $mt_mag_mode, $mt_var_random_phi, $input_mode,
+     *$distrib_type, $f_lo, $f_hi, $f_res, $f_num, $fdim, $op_mode, 
+     *$inject_d, $inject_q, $inject_p, $inject_n, $progress_time_res, 
+     *$os_factor, "$out_name", "$arr_f_fname")
+
+
+#ENDBEGIN
+#LOCAL INTEGER BR_S_
+#LOCAL INTEGER BR_MA_
+#LOCAL INTEGER BR_MB_
+
+#LOCAL INTEGER BR_EA_
+#LOCAL INTEGER BR_ZA_
+#LOCAL INTEGER BR_CA_
+#LOCAL INTEGER BR_IA_
+
+#LOCAL INTEGER BR_EB_
+#LOCAL INTEGER BR_ZB_
+#LOCAL INTEGER BR_CB_
+#LOCAL INTEGER BR_IB_
+
+#LOCAL INTEGER NA_
+#LOCAL INTEGER NB_
+#LOCAL INTEGER NAM_
+#LOCAL INTEGER NBM_
+#LOCAL INTEGER NAI_
+#LOCAL INTEGER NBI_
+#LOCAL INTEGER NAIC_
+#LOCAL INTEGER NBIC_
+#LOCAL INTEGER NS_
+
+      NA_ = -1
+      NB_ = -1
+      NAM_ = -1
+      NBM_ = -1
+      NAI_ = -1
+      NBI_ = -1
+      NAIC_ = -1
+      NBIC_ = -1
+      NS_ = -1
+
+      BR_S_ = -1
+      BR_MA_ = -1
+      BR_MB_ = -1
+      
+      BR_EA_ = -1
+      BR_ZA_ = -1
+      BR_CA_ = -1
+      BR_IA_ = -1
+      
+      BR_ZB_ = -1
+      BR_CB_ = -1
+      BR_EB_ = -1
+      BR_IB_ = -1
+
+      NA_ = $A(1)
+      NB_ = $B(1)
+      NAM_ = $AM(1)
+      NBM_ = $BM(1)
+
+      BR_MA_ = $BR_MA(1)
+      BR_MB_ = $BR_MB(1)
+
+#IF ($series > 0)
+
+
+  #IF ($inject_vi_type <= $RTOL)
+      BR_EA_ = $BR_EA(1)
+
+  #ELSEIF (1.0 - $inject_vi_type <= $RTOL)
+      BR_S_ = $BR_S(1)
+      BR_IB_ = $BR_IB(1)
+
+  #ELSE
+      BR_EA_ = $BR_EA(1)
+      BR_IB_ = $BR_IB(1)
+
+  #ENDIF
+
+#ELSEIF ($split > 0)
+  #IF ($inject_vi_type >= $RTOL)
+      BR_IA_ = $BR_IA(1)
+      BR_IB_ = $BR_IB(1)
+  #ENDIF
+      BR_S_ = $BR_S(1)
+      
+      BR_EA_ = $BR_EA(1)
+      BR_ZA_ = $BR_ZA(1)
+      BR_CA_ = $BR_CA(1)
+      
+      BR_EB_ = $BR_EB(1)
+      BR_ZB_ = $BR_ZB(1)
+      BR_CB_ = $BR_CB(1)
+
+#ELSE 
+      BR_S_ = $BR_S(1)
+#ENDIF
+
+#COMPONENTID
+      CALL DYN_RZ(
+     *$series, $split, $bypass, $start_mode, $ena_a, $ena_b,
+     *$enable, $inject_vi_type, $start_time, $SS, BR_S_, BR_MA_, BR_MB_,
+     *BR_EA_, BR_EB_, BR_CA_, BR_CB_, BR_IA_, BR_IB_, BR_ZA_, BR_ZB_,
+     *NA_, NB_, NS_, $vbase, $sys_a_sbase, $sys_b_sbase, $f_fund,
+     *$sys_z_a, $sys_z_b, $Rshc, $Gopc, $RTOL,
+     *$b_show_advanced, $sys_split, $frame_mode,
+     *$ref_angle, $auto_init_phi_kp, $auto_init_phi_ki, $man_init_phi,
+     *$auto_init_mag_kp, $auto_init_mag_ki, $man_init_mag,
+     *$P_AB_out_init_mw, $Q_AB_out_init_mvar, $inject_mag,
+     *$inject_cycles, $ramp_cycles, $ramp_time_min, 
+     *$exc_type, $mt_mag_mode, $mt_var_random_phi, $input_mode,
+     *$distrib_type, $f_lo, $f_hi, $f_res, $f_num, $fdim, $op_mode, 
+     *$inject_d, $inject_q, $inject_p, $inject_n, $progress_time_res, 
+     *$os_factor, "$out_name", "$arr_f_fname", $debug_out)]]></segment>
+        <segment name="Dsout" id="1676342123" classid="CoreSegment"><![CDATA[#BEGIN
+#LOCAL INTEGER BR_S_
+#LOCAL INTEGER BR_MA_
+#LOCAL INTEGER BR_MB_
+
+#LOCAL INTEGER BR_EA_
+#LOCAL INTEGER BR_ZA_
+#LOCAL INTEGER BR_CA_
+#LOCAL INTEGER BR_IA_
+
+#LOCAL INTEGER BR_EB_
+#LOCAL INTEGER BR_ZB_
+#LOCAL INTEGER BR_CB_
+#LOCAL INTEGER BR_IB_
+
+#LOCAL INTEGER NA_
+#LOCAL INTEGER NB_
+#LOCAL INTEGER NAM_
+#LOCAL INTEGER NBM_
+#LOCAL INTEGER NAI_
+#LOCAL INTEGER NBI_
+#LOCAL INTEGER NAIC_
+#LOCAL INTEGER NBIC_
+#LOCAL INTEGER NS_
+
+      NA_ = -1
+      NB_ = -1
+      NAM_ = -1
+      NBM_ = -1
+      NAI_ = -1
+      NBI_ = -1
+      NAIC_ = -1
+      NBIC_ = -1
+      NS_ = -1
+
+      BR_S_ = -1
+      BR_MA_ = -1
+      BR_MB_ = -1
+      
+      BR_EA_ = -1
+      BR_ZA_ = -1
+      BR_CA_ = -1
+      BR_IA_ = -1
+      
+      BR_ZB_ = -1
+      BR_CB_ = -1
+      BR_EB_ = -1
+      BR_IB_ = -1
+
+      NA_ = $A(1)
+      NB_ = $B(1)
+      NAM_ = $AM(1)
+      NBM_ = $BM(1)
+
+      BR_MA_ = $BR_MA(1)
+      BR_MB_ = $BR_MB(1)
+
+#IF ($series > 0)
+
+
+  #IF ($inject_vi_type <= $RTOL)
+      BR_EA_ = $BR_EA(1)
+
+  #ELSEIF (1.0 - $inject_vi_type <= $RTOL)
+      BR_S_ = $BR_S(1)
+      BR_IB_ = $BR_IB(1)
+
+  #ELSE
+      BR_EA_ = $BR_EA(1)
+      BR_IB_ = $BR_IB(1)
+
+  #ENDIF
+
+#ELSEIF ($split > 0)
+  #IF ($inject_vi_type >= $RTOL)
+      BR_IA_ = $BR_IA(1)
+      BR_IB_ = $BR_IB(1)
+  #ENDIF
+      BR_S_ = $BR_S(1)
+      
+      BR_EA_ = $BR_EA(1)
+      BR_ZA_ = $BR_ZA(1)
+      BR_CA_ = $BR_CA(1)
+      
+      BR_EB_ = $BR_EB(1)
+      BR_ZB_ = $BR_ZB(1)
+      BR_CB_ = $BR_CB(1)
+
+#ELSE 
+      BR_S_ = $BR_S(1)
+#ENDIF
+#COMPONENTID
+      CALL BGN_O_RZ(
+     *$series, $split, $bypass, $start_mode, $ena_a, $ena_b,
+     *$enable, $inject_vi_type, $start_time, $SS, BR_S_, BR_MA_, BR_MB_,
+     *BR_EA_, BR_EB_, BR_CA_, BR_CB_, BR_IA_, BR_IB_, BR_ZA_, BR_ZB_,
+     *NA_, NB_, NS_, $vbase, $sys_a_sbase, $sys_b_sbase, $f_fund,
+     *$sys_z_a, $sys_z_b, $Rshc, $Gopc, $RTOL,
+     *$b_show_advanced, $sys_split, $frame_mode,
+     *$ref_angle, $auto_init_phi_kp, $auto_init_phi_ki, $man_init_phi,
+     *$auto_init_mag_kp, $auto_init_mag_ki, $man_init_mag,
+     *$P_AB_out_init_mw, $Q_AB_out_init_mvar, $inject_mag,
+     *$inject_cycles, $ramp_cycles, $ramp_time_min, 
+     *$exc_type, $mt_mag_mode, $mt_var_random_phi, $input_mode,
+     *$distrib_type, $f_lo, $f_hi, $f_res, $f_num, $fdim, $op_mode, 
+     *$inject_d, $inject_q, $inject_p, $inject_n, $progress_time_res, 
+     *$os_factor, "$out_name", "$arr_f_fname")
+
+#ENDBEGIN
+
+#LOCAL INTEGER BR_S_
+#LOCAL INTEGER BR_MA_
+#LOCAL INTEGER BR_MB_
+
+#LOCAL INTEGER BR_EA_
+#LOCAL INTEGER BR_ZA_
+#LOCAL INTEGER BR_CA_
+#LOCAL INTEGER BR_IA_
+
+#LOCAL INTEGER BR_EB_
+#LOCAL INTEGER BR_ZB_
+#LOCAL INTEGER BR_CB_
+#LOCAL INTEGER BR_IB_
+
+#LOCAL INTEGER NA_
+#LOCAL INTEGER NB_
+#LOCAL INTEGER NAM_
+#LOCAL INTEGER NBM_
+#LOCAL INTEGER NAI_
+#LOCAL INTEGER NBI_
+#LOCAL INTEGER NAIC_
+#LOCAL INTEGER NBIC_
+#LOCAL INTEGER NS_
+
+      NA_ = -1
+      NB_ = -1
+      NAM_ = -1
+      NBM_ = -1
+      NAI_ = -1
+      NBI_ = -1
+      NAIC_ = -1
+      NBIC_ = -1
+      NS_ = -1
+
+      BR_S_ = -1
+      BR_MA_ = -1
+      BR_MB_ = -1
+      
+      BR_EA_ = -1
+      BR_ZA_ = -1
+      BR_CA_ = -1
+      BR_IA_ = -1
+      
+      BR_ZB_ = -1
+      BR_CB_ = -1
+      BR_EB_ = -1
+      BR_IB_ = -1
+
+      NA_ = $A(1)
+      NB_ = $B(1)
+      NAM_ = $AM(1)
+      NBM_ = $BM(1)
+
+      BR_MA_ = $BR_MA(1)
+      BR_MB_ = $BR_MB(1)
+
+#IF ($series > 0)
+
+
+  #IF ($inject_vi_type <= $RTOL)
+      BR_EA_ = $BR_EA(1)
+
+  #ELSEIF (1.0 - $inject_vi_type <= $RTOL)
+      BR_S_ = $BR_S(1)
+      BR_IB_ = $BR_IB(1)
+
+  #ELSE
+      BR_EA_ = $BR_EA(1)
+      BR_IB_ = $BR_IB(1)
+
+  #ENDIF
+
+#ELSEIF ($split > 0)
+  #IF ($inject_vi_type >= $RTOL)
+      BR_IA_ = $BR_IA(1)
+      BR_IB_ = $BR_IB(1)
+  #ENDIF
+      BR_S_ = $BR_S(1)
+      
+      BR_EA_ = $BR_EA(1)
+      BR_ZA_ = $BR_ZA(1)
+      BR_CA_ = $BR_CA(1)
+      
+      BR_EB_ = $BR_EB(1)
+      BR_ZB_ = $BR_ZB(1)
+      BR_CB_ = $BR_CB(1)
+
+#ELSE 
+      BR_S_ = $BR_S(1)
+#ENDIF
+#COMPONENTID
+      CALL OUT_RZ(
+     *$series, $split, $bypass, $start_mode, $ena_a, $ena_b,
+     *$enable, $inject_vi_type, $start_time, $SS, BR_S_, BR_MA_, BR_MB_,
+     *BR_EA_, BR_EB_, BR_CA_, BR_CB_, BR_IA_, BR_IB_, BR_ZA_, BR_ZB_,
+     *NA_, NB_, NS_, $vbase, $sys_a_sbase, $sys_b_sbase, $f_fund,
+     *$sys_z_a, $sys_z_b, $Rshc, $Gopc, $RTOL,
+     *$b_show_advanced, $sys_split, $frame_mode,
+     *$ref_angle, $auto_init_phi_kp, $auto_init_phi_ki, $man_init_phi,
+     *$auto_init_mag_kp, $auto_init_mag_ki, $man_init_mag,
+     *$P_AB_out_init_mw, $Q_AB_out_init_mvar, $inject_mag,
+     *$inject_cycles, $ramp_cycles, $ramp_time_min, 
+     *$exc_type, $mt_mag_mode, $mt_var_random_phi, $input_mode,
+     *$distrib_type, $f_lo, $f_hi, $f_res, $f_num, $fdim, $op_mode, 
+     *$inject_d, $inject_q, $inject_p, $inject_n, $progress_time_res, 
+     *$os_factor, "$out_name", "$arr_f_fname")]]></segment>
+        <segment name="Branch" id="67773488" classid="CoreSegment"><![CDATA[
+    BR_MA = $AM $A AMMETER
+    BR_MB = $BM $B AMMETER
+
+#IF ($series > 0)
+
+  #IF ($inject_vi_type <= $RTOL)
+
+    BR_EA = $AM $BM SOURCE 0.0
+  #ELSEIF (1.0 - $inject_vi_type <= $RTOL)
+
+    BR_S = $AM $BM  BREAKER 0.0
+    BR_IB = $NS $BM BREAKER $Ropc
+  #ELSE
+
+    BR_EA = $AM $BM SOURCE 0.0
+    BR_IB = $NS $BM BREAKER $Ropc
+  #ENDIF
+
+#ELSEIF ($split > 0)
+
+    BR_S = $AM $BM BREAKER 0.0
+    
+    BR_ZA = $AIC $AM BREAKER $Ropc
+    BR_CA = $AI $AIC BREAKER $Ropc
+    BR_EA = $NS $AI SOURCE 0.0
+    #IF ($inject_vi_type >= $RTOL)
+
+    BR_IA = $NS $AM BREAKER $Ropc
+    #ENDIF
+    
+    BR_ZB = $BIC $BM BREAKER $Ropc
+    BR_CB = $BI $BIC BREAKER $Ropc
+    BR_EB = $NS $BI SOURCE 0.0
+    #IF ($inject_vi_type >= $RTOL)
+
+    BR_IB = $NS $BM BREAKER $Ropc
+    #ENDIF
+
+#ELSE 
+    BR_S = $AM $BM BREAKER 0.0
+#ENDIF]]></segment>
+        <segment classid="CoreSegment" id="340393604" name="Computations"><![CDATA[
+INTEGER i_ena = 1 - enable
+INTEGER i_ena_a = 1 - ena_a
+INTEGER i_ena_b = 1 - ena_b
+INTEGER bypass = min(i_ena + i_ena_a*i_ena_b, 1)
+INTEGER i_sysplt = 1 - sys_split
+INTEGER i_bypass = 1 - bypass
+INTEGER series = i_bypass * i_sysplt
+INTEGER split = i_bypass * sys_split
+
+
+REAL vbase_lg = vbase / sqrt(3)
+REAL i_a_base = sys_a_sbase / (sqrt(3) * vbase)
+REAL i_b_base = sys_b_sbase / (sqrt(3) * vbase)
+REAL z_a_base = vbase*vbase/sys_a_sbase
+REAL z_b_base = vbase*vbase/sys_b_sbase
+REAL l_a_base = z_a_base/(2*pi*f_fund)
+REAL l_b_base = z_b_base/(2*pi*f_fund)
+REAL Ropc = 1/max(Gopc, RTOL)]]></segment>
+      </script>
+      <graphics size="4">
+        <Gfx classid="Graphics.Line" id="1781609348" x="18" y="18">
+          <vertex x="0" y="0" />
+          <vertex x="0" y="-15" />
+          <paramlist>
+            <param name="color" value="Green" />
+            <param name="dasharray" value="0" />
+            <param name="thickness" value="1" />
+            <param name="port" value="" />
+            <param name="cond" value="show_dbg" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Rectangle" id="633787540" x="-24" y="-38" w="49" h="41">
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="dasharray" value="0" />
+            <param name="thickness" value="2" />
+            <param name="port" value="" />
+            <param name="fill_style" value="1" />
+            <param name="fill_fg" value="#ffc0c0c0" />
+            <param name="fill_bg" value="#ffc0c0c0" />
+            <param name="cond" value="true" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Rectangle" id="660945978" x="-24" y="-38" w="49" h="41">
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="dasharray" value="0" />
+            <param name="thickness" value="0" />
+            <param name="port" value="" />
+            <param name="fill_style" value="1" />
+            <param name="fill_fg" value="#FFFF204D" />
+            <param name="fill_bg" value="Black" />
+            <param name="cond" value="enable==1" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Rectangle" id="813549625" x="-24" y="-38" w="24" h="41">
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="dasharray" value="2" />
+            <param name="thickness" value="0" />
+            <param name="port" value="" />
+            <param name="fill_style" value="1" />
+            <param name="fill_fg" value="#ff008000" />
+            <param name="fill_bg" value="Black" />
+            <param name="cond" value="(enable==1)&amp;&amp;(ena_b==0)" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Rectangle" id="1841893759" x="0" y="-38" w="25" h="41">
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="dasharray" value="2" />
+            <param name="thickness" value="0" />
+            <param name="port" value="" />
+            <param name="fill_style" value="1" />
+            <param name="fill_fg" value="#ff008000" />
+            <param name="fill_bg" value="Black" />
+            <param name="cond" value="(enable==1)&amp;&amp;(ena_a==0)" />
+          </paramlist>
+        </Gfx>
+        <paramlist>
+          <param name="show_border" value="0" />
+          <param name="show_grid" value="0" />
+          <param name="size" value="0" />
+          <param name="orient" value="1" />
+        </paramlist>
+        <Gfx classid="Graphics.Line" id="1598661494" x="-54" y="-18">
+          <vertex x="0" y="0" />
+          <vertex x="29" y="0" />
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="dasharray" value="0" />
+            <param name="thickness" value="1" />
+            <param name="port" value="" />
+            <param name="cond" value="true" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Line" id="2091417408" x="54" y="-18">
+          <vertex x="0" y="0" />
+          <vertex x="-29" y="0" />
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="dasharray" value="0" />
+            <param name="thickness" value="1" />
+            <param name="port" value="" />
+            <param name="cond" value="true" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Text" id="1810156694" x="26" y="-4">
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="font_size" value="0" />
+            <param name="full_font" value="Tahoma, 12world" />
+            <param name="anchor" value="0" />
+            <param name="cond" value="true" />
+            <param name="text" value="$sys_A_name" />
+            <param name="angle" value="0" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Text" id="141936538" x="-25" y="-3">
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="font_size" value="0" />
+            <param name="full_font" value="Tahoma, 12world" />
+            <param name="anchor" value="2" />
+            <param name="cond" value="true" />
+            <param name="text" value="$sys_B_name" />
+            <param name="angle" value="0" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Text" id="81304594" x="0" y="-41">
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="font_size" value="0" />
+            <param name="full_font" value="Tahoma, 12world" />
+            <param name="anchor" value="1" />
+            <param name="cond" value="true" />
+            <param name="text" value="$loc_name" />
+            <param name="angle" value="0" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Text" id="398320207" x="21" y="-16">
+          <paramlist>
+            <param name="color" value="#ffffffff" />
+            <param name="font_size" value="0" />
+            <param name="full_font" value="Tahoma, 8world" />
+            <param name="anchor" value="1" />
+            <param name="cond" value="true" />
+            <param name="text" value="A" />
+            <param name="angle" value="0" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Text" id="1396230498" x="-20" y="-16">
+          <paramlist>
+            <param name="color" value="#ffffffff" />
+            <param name="font_size" value="0" />
+            <param name="full_font" value="Tahoma, 8world" />
+            <param name="anchor" value="1" />
+            <param name="cond" value="true" />
+            <param name="text" value="B" />
+            <param name="angle" value="0" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Text" id="1781627819" x="0" y="-21">
+          <paramlist>
+            <param name="color" value="#ffffffff" />
+            <param name="font_size" value="0" />
+            <param name="full_font" value="Tahoma, 12world" />
+            <param name="anchor" value="1" />
+            <param name="cond" value="true" />
+            <param name="text" value="RZ" />
+            <param name="angle" value="0" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Text" id="1360066315" x="1" y="-6">
+          <paramlist>
+            <param name="color" value="#ffffffff" />
+            <param name="font_size" value="0" />
+            <param name="full_font" value="Tahoma, 12world" />
+            <param name="anchor" value="1" />
+            <param name="cond" value="true" />
+            <param name="text" value="module" />
+            <param name="angle" value="0" />
+          </paramlist>
+        </Gfx>
+        <Port classid="Port" id="629440739" x="-54" y="-18">
+          <paramlist>
+            <param name="name" value="B" />
+            <param name="dim" value="3" />
+            <param name="internal" value="false" />
+            <param name="cond" value="true" />
+            <param name="mode" value="3" />
+            <param name="datatype" value="1" />
+            <param name="electype" value="0" />
+          </paramlist>
+        </Port>
+        <Port classid="Port" id="711367356" x="54" y="-18">
+          <paramlist>
+            <param name="name" value="A" />
+            <param name="dim" value="3" />
+            <param name="internal" value="false" />
+            <param name="cond" value="true" />
+            <param name="mode" value="3" />
+            <param name="datatype" value="1" />
+            <param name="electype" value="0" />
+          </paramlist>
+        </Port>
+        <Port classid="Port" id="632013339" x="0" y="-18">
+          <paramlist>
+            <param name="name" value="BI" />
+            <param name="dim" value="3" />
+            <param name="internal" value="true" />
+            <param name="cond" value="(enable==1)&amp;&amp;((ena_a==1)||(ena_b==1))&amp;&amp;(sys_split==1)" />
+            <param name="mode" value="3" />
+            <param name="datatype" value="1" />
+            <param name="electype" value="0" />
+          </paramlist>
+        </Port>
+        <Port classid="Port" id="325287394" x="0" y="-18">
+          <paramlist>
+            <param name="name" value="AI" />
+            <param name="dim" value="3" />
+            <param name="internal" value="true" />
+            <param name="cond" value="(enable==1)&amp;&amp;((ena_a==1)||(ena_b==1))&amp;&amp;(sys_split==1)" />
+            <param name="mode" value="3" />
+            <param name="datatype" value="1" />
+            <param name="electype" value="0" />
+          </paramlist>
+        </Port>
+        <Port classid="Port" id="502232227" x="0" y="-18">
+          <paramlist>
+            <param name="name" value="AM" />
+            <param name="dim" value="3" />
+            <param name="internal" value="true" />
+            <param name="cond" value="true" />
+            <param name="mode" value="3" />
+            <param name="datatype" value="1" />
+            <param name="electype" value="0" />
+          </paramlist>
+        </Port>
+        <Port classid="Port" id="48434930" x="0" y="-18">
+          <paramlist>
+            <param name="name" value="BM" />
+            <param name="dim" value="3" />
+            <param name="internal" value="true" />
+            <param name="cond" value="true" />
+            <param name="mode" value="3" />
+            <param name="datatype" value="1" />
+            <param name="electype" value="0" />
+          </paramlist>
+        </Port>
+        <Port classid="Port" id="285020355" x="0" y="-18">
+          <paramlist>
+            <param name="name" value="BIC" />
+            <param name="dim" value="3" />
+            <param name="internal" value="true" />
+            <param name="cond" value="(enable==1)&amp;&amp;((ena_a==1)||(ena_b==1))&amp;&amp;(sys_split==1)" />
+            <param name="mode" value="3" />
+            <param name="datatype" value="1" />
+            <param name="electype" value="0" />
+          </paramlist>
+        </Port>
+        <Port classid="Port" id="1785089479" x="0" y="-18">
+          <paramlist>
+            <param name="name" value="AIC" />
+            <param name="dim" value="3" />
+            <param name="internal" value="true" />
+            <param name="cond" value="(enable==1)&amp;&amp;((ena_a==1)||(ena_b==1))&amp;&amp;(sys_split==1)" />
+            <param name="mode" value="3" />
+            <param name="datatype" value="1" />
+            <param name="electype" value="0" />
+          </paramlist>
+        </Port>
+        <Port classid="Port" id="2025851509" x="0" y="18">
+          <paramlist>
+            <param name="name" value="NS" />
+            <param name="dim" value="1" />
+            <param name="internal" value="false" />
+            <param name="cond" value="(enable==1)&amp;&amp;((ena_a==1)||(ena_b==1))&amp;&amp;((sys_split==1)||((sys_split==0)&amp;&amp;(inject_vi_type&gt;RTOL)))" />
+            <param name="mode" value="3" />
+            <param name="datatype" value="1" />
+            <param name="electype" value="0" />
+          </paramlist>
+        </Port>
+        <Gfx classid="Graphics.Line" id="1920551854" x="0" y="3">
+          <vertex x="0" y="0" />
+          <vertex x="0" y="14" />
+          <paramlist>
+            <param name="color" value="Black" />
+            <param name="dasharray" value="0" />
+            <param name="thickness" value="1" />
+            <param name="port" value="" />
+            <param name="cond" value="" />
+          </paramlist>
+        </Gfx>
+        <Gfx classid="Graphics.Text" id="863626434" x="0" y="1">
+          <paramlist>
+            <param name="color" value="#ffffffff" />
+            <param name="font_size" value="0" />
+            <param name="full_font" value="Tahoma, 8world" />
+            <param name="anchor" value="1" />
+            <param name="cond" value="" />
+            <param name="text" value="N" />
+            <param name="angle" value="0" />
+          </paramlist>
+        </Gfx>
+        <Port id="420815884" classid="Port" x="18" y="18">
+          <paramlist>
+            <param name="name" value="debug_out" />
+            <param name="internal" value="false" />
+            <param name="cond" value="true" />
+            <param name="mode" value="2" />
+            <param name="datatype" value="3" />
+            <param name="electype" value="0" />
+            <param name="dim" value="34" />
+          </paramlist>
+        </Port>
+        <Gfx classid="Graphics.Text" id="1975654605" x="17" y="0">
+          <paramlist>
+            <param name="color" value="#ffffffff" />
+            <param name="font_size" value="0" />
+            <param name="anchor" value="1" />
+            <param name="cond" value="show_dbg" />
+            <param name="text" value="dbg" />
+            <param name="full_font" value="Tahoma, 8world" />
+            <param name="angle" value="0" />
+          </paramlist>
+        </Gfx>
+      </graphics>
+      <form name="RZ scan module" w="561" h="658" splitter="60" commentlines="4" help-width="490" category-width="180">
+        <category name="Basic" visible="true" splitter="60">
+          <cond><![CDATA[true]]></cond>
+          <parameter name="enable" desc="Enable element" type="Integer" group="0. Enable" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+          <parameter name="ena_a" desc="Enable side A" type="Integer" group="0. Enable" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[false]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+          <parameter name="ena_b" desc="Enable side B" type="Integer" group="0. Enable" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[false]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+          <parameter name="loc_name" desc="Location name" group="1. Name definitions" type="Text" helpmode="Append" allowemptystr="false" min="0" max="0">
+            <value><![CDATA[Plant 1 POC]]></value>
+            <cond />
+            <help />
+            <regex />
+            <error_msg />
+            <vis />
+          </parameter>
+          <parameter name="sys_a_name" desc="Side A device/system name" type="Text" group="1. Name definitions" helpmode="Append" allowemptystr="false" min="0" max="0">
+            <value><![CDATA[Network 1]]></value>
+            <cond><![CDATA[(ena_a==1)]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[]]></help>
+            <regex><![CDATA[]]></regex>
+            <error_msg><![CDATA[]]></error_msg>
+          </parameter>
+          <parameter name="sys_b_name" desc="Side B device/system name" type="Text" group="1. Name definitions" helpmode="Append" allowemptystr="false" min="0" max="0">
+            <value><![CDATA[Device 1]]></value>
+            <cond><![CDATA[(ena_b==1)]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[]]></help>
+            <regex><![CDATA[]]></regex>
+            <error_msg><![CDATA[]]></error_msg>
+          </parameter>
+          <parameter name="b_show_advanced" desc="Show advanced / testing options" type="Integer" group="3. Advanced options" helpmode="Append" content_type="Literal" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+          <parameter name="b_dev_options" desc="Show developer options" type="Integer" group="3. Advanced options" helpmode="Append" content_type="Literal" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[false]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+          <parameter name="f_fund" desc="Fundamenal frequency [Hz]" group="2. Base values" unit="" min="1E-308" max="1E+308" content_type="Constant" type="Real" helpmode="Append" intent="Input" dim="1" animate="false">
+            <value><![CDATA[50]]></value>
+            <cond />
+            <help><![CDATA[[Hz]]]></help>
+            <vis />
+          </parameter>
+          <parameter name="vbase" desc="Base voltage [kV]" type="Real" group="2. Base values" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[500]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[[LL kV]]]></help>
+          </parameter>
+          <parameter name="sys_a_sbase" desc="Side A base power [MVA]" type="Real" group="2. Base values" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[100]]></value>
+            <cond><![CDATA[(ena_a==1)]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[[MVA]]]></help>
+          </parameter>
+          <parameter name="sys_b_sbase" desc="Side B base power [MVA]" type="Real" group="2. Base values" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[100]]></value>
+            <cond><![CDATA[(ena_b==1)]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[[MVA]]]></help>
+          </parameter>
+        </category>
+        <category name="Advanced / testing" visible="true" splitter="67">
+          <cond><![CDATA[b_show_advanced]]></cond>
+          <parameter name="sys_z_a" desc="System A source impedance [pu]" type="Complex" group="2. Split system internal source impedance (R, X)" helpmode="Append" content_type="Literal" intent="Input" dim="1" animate="false" unit="" min="0" max="1E+308">
+            <value><![CDATA[(0.01, 0.1)]]></value>
+            <cond><![CDATA[(sys_split==1)]]></cond>
+            <vis><![CDATA[(b_show_advanced>=1)]]></vis>
+            <help><![CDATA[Internal source impedance inside RZ]]></help>
+          </parameter>
+          <parameter name="sys_z_b" desc="System B source impedance [pu]" type="Complex" group="2. Split system internal source impedance (R, X)" helpmode="Append" content_type="Literal" intent="Input" dim="1" animate="false" unit="" min="0" max="1E+308">
+            <value><![CDATA[(0.01, 0.1)]]></value>
+            <cond><![CDATA[(sys_split==1)]]></cond>
+            <vis><![CDATA[(b_show_advanced>=1)]]></vis>
+            <help><![CDATA[Internal source impedance inside RZ]]></help>
+          </parameter>
+          <parameter name="auto_init_phi_kp" desc="Start up voltage angle tracking Kp" type="Real" group="3. Split system automatic start up parameters" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="0" max="1E+308">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[(sys_split==1)&&(start_mode==0)]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[pu/pu]]]></help>
+          </parameter>
+          <parameter name="auto_init_phi_ki" desc="Start up voltage angle tracking Ki" type="Real" group="3. Split system automatic start up parameters" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="0" max="1E+308">
+            <value><![CDATA[10]]></value>
+            <cond><![CDATA[(sys_split==1)&&(start_mode==0)]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[pu/pu]]]></help>
+          </parameter>
+          <parameter name="man_init_mag" desc="Initial voltage magnitude [pu]" type="Real" group="4. Split system manual start up parameters" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[1.0]]></value>
+            <cond><![CDATA[(sys_split==1)&&(start_mode==1)]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[pu]]]></help>
+          </parameter>
+          <parameter name="man_init_phi" desc="Initial voltage angle [deg]" type="Real" group="4. Split system manual start up parameters" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="-1E+308" max="1E+308">
+            <value><![CDATA[0.0]]></value>
+            <cond><![CDATA[(sys_split==1)&&(start_mode==1)]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[deg]]]></help>
+          </parameter>
+          <parameter name="P_AB_out_init_mw" desc="Initial active power flow (A-&gt;B) [MW]" type="Real" group="4. Split system manual start up parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="-1E+308" max="1E+308">
+            <value><![CDATA[0.0]]></value>
+            <cond><![CDATA[(sys_split==1)&&(start_mode==1)]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[MW]]]></help>
+          </parameter>
+          <parameter name="Q_AB_out_init_mvar" desc="Initial reactive power flow (A-&gt;B) [Mvar]" type="Real" group="4. Split system manual start up parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="-1E+308" max="1E+308">
+            <value><![CDATA[0.0]]></value>
+            <cond><![CDATA[(sys_split==1)&&(start_mode==1)]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[Mvar]]]></help>
+          </parameter>
+          <parameter name="Rshc" desc="Short circuit R [Ohm]" type="Real" group="5. Circuit parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[1e-3]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[Ohm]]]></help>
+          </parameter>
+          <parameter name="Gopc" desc="Open circuit G [Mho]" type="Real" group="5. Circuit parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1E+308">
+            <value><![CDATA[1e-12]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[Ohm]]]></help>
+          </parameter>
+          <parameter name="start_time" desc="Start up time prior to injection [s]" type="Real" group="1. Start up testing" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="0" max="1E+308">
+            <value><![CDATA[5]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[(b_show_advanced>=1)]]></vis>
+            <help><![CDATA[[s]]]></help>
+          </parameter>
+          <parameter name="sys_split" desc="System split [0: series, 1: split]" type="Integer" group="1. Start up testing" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[(b_show_advanced>=1)]]></vis>
+            <help><![CDATA[0: RZ inserted in series, 1: RZ split system A and B]]></help>
+          </parameter>
+          <parameter name="start_mode" desc="Start up mode [0: auto, 1: manual]" type="Integer" group="1. Start up testing" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[sys_split==1]]></cond>
+            <vis><![CDATA[(b_show_advanced>=1)]]></vis>
+            <help><![CDATA[0: auto, 1: manual]]></help>
+          </parameter>
+        </category>
+        <category name="System" visible="false" splitter="60">
+          <cond><![CDATA[b_dev_options>=1]]></cond>
+          <parameter name="frame_mode" desc="Reference frame mode" type="Integer" group="2. Frame" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[True]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[Defines frame for extracted data, 0: local, 1: global]]></help>
+          </parameter>
+          <parameter name="ref_angle" desc="Reference frame angle" type="Real" group="2. Frame" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="360">
+            <value><![CDATA[0.0]]></value>
+            <cond><![CDATA[frame_mode==1]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[Reference frame angle [deg]]></help>
+          </parameter>
+        </category>
+        <category name="Initialisation" visible="false" splitter="60">
+          <cond><![CDATA[b_dev_options>=1]]></cond>
+          <parameter name="auto_init_mag_kp" desc="Start up auto voltage magnitude Kp" type="Real" group="3. Magnitude setup" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="0" max="1E+308">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[]]></cond>
+            <vis><![CDATA[b_show_advanced>=1&&sys_split==1]]></vis>
+            <help><![CDATA[[pu/pu]]]></help>
+          </parameter>
+          <parameter name="auto_init_mag_ki" desc="Start up auto voltage magnitude Ki" type="Real" group="3. Magnitude setup" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="0" max="1E+308">
+            <value><![CDATA[10]]></value>
+            <cond><![CDATA[]]></cond>
+            <vis><![CDATA[b_show_advanced>=1&&sys_split==1]]></vis>
+            <help><![CDATA[[pu/pu]]]></help>
+          </parameter>
+        </category>
+        <category name="Signal Setup" visible="false" splitter="60">
+          <cond><![CDATA[b_dev_options>=1]]></cond>
+          <parameter name="inject_mag" desc="Injection magnitude" type="Real" group="1. Signal parameters" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[1e-3]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[pu]]]></help>
+          </parameter>
+          <parameter name="inject_cycles" desc="Injection duration" type="Real" group="1. Signal parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[3]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[[cycle]]]></help>
+          </parameter>
+          <parameter name="ramp_cycles" desc="Ramp up duration" type="Real" group="1. Signal parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[cycle]]]></help>
+          </parameter>
+          <parameter name="ramp_time_min" desc="Ramp up minimum duration" type="Real" group="1. Signal parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[0.5]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[[s]]]></help>
+          </parameter>
+          <parameter name="exc_type" desc="Perturbation signal" type="Integer" group="1. Signal parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[0: mt/st, 1: prbs]]></help>
+          </parameter>
+          <parameter name="mt_mag_mode" desc="Multitone magnitude mode" type="Integer" group="1. Signal parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="2">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[0: max dev, 1: max powre, 2: no scale]]></help>
+          </parameter>
+          <parameter name="mt_var_random_phi" desc="Multitone variable random phase" type="Integer" group="1. Signal parameters" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[0: use defaultt, 1: variable]]></help>
+          </parameter>
+          <parameter name="input_mode" desc="Frequency input mode" type="Integer" group="2. Frequencies" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[0: data input, 1: file input]]></help>
+          </parameter>
+          <parameter name="arr_f_fname" desc="Frequency input array filename" group="2. Frequencies" type="Text" helpmode="Append" allowemptystr="false" min="0" max="0">
+            <value><![CDATA[in_arr_f.txt]]></value>
+            <cond><![CDATA[input_mode==1]]></cond>
+            <help />
+            <regex />
+            <error_msg />
+            <vis />
+          </parameter>
+          <parameter name="distrib_type" desc="Frequency span distribution" type="Integer" group="2. Frequencies" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[input_mode==0]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[0: linear, 1: log]]></help>
+          </parameter>
+          <parameter name="f_lo" desc="Frequency span lower value" type="Real" group="2. Frequencies" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[input_mode==0]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[[Hz]]]></help>
+          </parameter>
+          <parameter name="f_hi" desc="Frequency span upper value" type="Real" group="2. Frequencies" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[1000]]></value>
+            <cond><![CDATA[input_mode==0]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[[Hz]]]></help>
+          </parameter>
+          <parameter name="f_res" desc="Frequency resolution" type="Real" group="2. Frequencies" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[[Hz]]]></help>
+          </parameter>
+          <parameter name="f_num" desc="Frequency number of points in span" type="Integer" group="2. Frequencies" helpmode="Append" content_type="Literal" intent="Input" dim="1" animate="false" unit="" min="1" max="2147483647">
+            <value><![CDATA[1001]]></value>
+            <cond><![CDATA[input_mode==0]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+          <parameter name="inject_vi_type" desc="Inject voltage or current" type="Real" group="3. Injection configuation" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=1]]></vis>
+            <help><![CDATA[0: voltage, 1: current]]></help>
+          </parameter>
+        </category>
+        <category name="Injection" visible="false" splitter="60">
+          <cond><![CDATA[b_dev_options>=1]]></cond>
+          <parameter name="inject_d" desc="Inject direct axis" type="Real" group="1. Park domain" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="-1" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[0: off, 1: on, -1: on anti-phase]]></help>
+          </parameter>
+          <parameter name="inject_q" desc="Inject quadrature axis" type="Real" group="1. Park domain" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="-1" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[0: off, 1: on, -1: on anti-phase]]></help>
+          </parameter>
+          <parameter name="inject_p" desc="Inject positive sequence" type="Real" group="2. Sequence domain" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="-1" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[0: off, 1: on, -1: on anti-phase]]></help>
+          </parameter>
+          <parameter name="inject_n" desc="Inject negative sequence" type="Real" group="2. Sequence domain" helpmode="Append" content_type="Variable" intent="Input" dim="1" animate="false" unit="" min="-1" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[0: off, 1: on, -1: on anti-phase]]></help>
+          </parameter>
+        </category>
+        <category name="Miscellaneous" visible="false">
+          <cond><![CDATA[b_dev_options>=1]]></cond>
+          <parameter name="RTOL" desc="Tolerance" type="Real" group="General" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[1e-20]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[true]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+        </category>
+        <category name="Internal" visible="false" splitter="60">
+          <cond><![CDATA[b_dev_options>=1]]></cond>
+          <vis><![CDATA[b_show_advanced>=2]]></vis>
+          <parameter name="out_name" desc="Output name" type="Text" group="" helpmode="Append" allowemptystr="false" min="0" max="0">
+            <value><![CDATA[_]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=2]]></vis>
+            <help><![CDATA[]]></help>
+            <regex><![CDATA[]]></regex>
+            <error_msg><![CDATA[]]></error_msg>
+          </parameter>
+          <parameter name="progress_time_res" desc="Progress time reporting resolution" type="Real" group="General" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1E-308" max="1E+308">
+            <value><![CDATA[0.25]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=2]]></vis>
+            <help><![CDATA[[s]]]></help>
+          </parameter>
+          <parameter name="fdim" desc="Frequency dimension" type="Integer" group="General" helpmode="Append" content_type="Literal" intent="Input" dim="1" animate="false" unit="" min="1" max="2147483647">
+            <value><![CDATA[1001]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=2]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+          <parameter name="op_mode" desc="Operation mode" type="Integer" group="General" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="-2147483648" max="2147483647">
+            <value><![CDATA[1]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=2]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+          <parameter name="os_factor" desc="Oversampling Factor" type="Integer" group="General" helpmode="Append" content_type="Constant" intent="Input" dim="1" animate="false" unit="" min="1" max="2147483647">
+            <value><![CDATA[5]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=2]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+          <parameter name="show_dbg" desc="Show debug" type="Integer" group="" helpmode="Append" content_type="Literal" intent="Input" dim="1" animate="false" unit="" min="0" max="1">
+            <value><![CDATA[0]]></value>
+            <cond><![CDATA[true]]></cond>
+            <vis><![CDATA[b_show_advanced>=2]]></vis>
+            <help><![CDATA[]]></help>
+          </parameter>
+        </category>
+      </form>
+    </Definition>
+  </definitions>
+  <List classid="Resource">
+    <Resource classid="LinkedResource" id="1209878879" url=".\lib\if18\rezonance_if18.lib">
+      <paramlist>
+        <param name="filepath" value=".\lib\if18\rezonance_if18.lib" />
+        <param name="copy_file" value="false" />
+        <param name="include" value="true" />
+      </paramlist>
+    </Resource>
+    <Resource classid="LinkedResource" id="610598610" url=".\lib\if18_x86\rezonance_if18_x86.lib">
+      <paramlist>
+        <param name="filepath" value=".\lib\if18_x86\rezonance_if18_x86.lib" />
+        <param name="copy_file" value="false" />
+        <param name="include" value="true" />
+      </paramlist>
+    </Resource>
+  </List>
+  <hierarchy>
+    <call link="805763953" name="rezonance:DS" z="-1" view="false" instance="0">
+      <call link="1540430437" name="rezonance:Main" z="-1" view="true" instance="0" />
+    </call>
+  </hierarchy>
+</project>
