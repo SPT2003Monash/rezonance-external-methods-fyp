@@ -1,6 +1,6 @@
 clc; close all;clear all
 
-main_dir = 'C:\Users\erict\Downloads\Modularized-Small-Signal-Modeling-of-Grid-Forming-Inverters-main\Generate_SSM';
+main_dir = 'C:\Users\erict\rezonance-external-methods-fyp\scripts\student_C';
 cd(main_dir)
 run("GFMI_Eric_Model.mlx")
 
@@ -9,13 +9,12 @@ run("GFMI_Eric_Model.mlx")
 
 
 
-main_dir='C:\Users\erict\Downloads\Modularized-Small-Signal-Modeling-of-Grid-Forming-Inverters-main\EigenAnalysis'; % set this to your parent directory-whereever you have this file
+main_dir='C:\Users\erict\rezonance-external-methods-fyp\scripts\student_C'; % set this to your parent directory-whereever you have this file
 MatPower_path='C:\matpower8.1'; %Directry where you have Matpower installed
 
 cd(main_dir)
 addpath(genpath(MatPower_path));
 
-load("Unified_VSG.mat");
 GFMI_1 = Unified_GFMI;
 
 load("Parameters.mat")
