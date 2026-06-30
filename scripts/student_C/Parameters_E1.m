@@ -29,12 +29,12 @@ fsw = 5e3;                   % Switching frequency (Hz)
 td = 1.5 / fsw;              % Delay accounting for inner control loops (s)
 
 %% LCL Filter Parameters (TO change) 
-lf1 = 140e-6;                % Inverter-side inductor (H)
-rf1 = 0.05 * Zb;             % Inverter-side resistance (Ohms)
-lf2 = 14e-6;                 % Grid-side inductor (H)
-rf2 = rf1;                   % Grid-side resistance (Ohms)
-cf = 334e-6;                 % Filter capacitor (F)
-rd = 65e-3;                  % Damping resistor (Ohms)
+lf1 = 7.577e-5;                % Inverter-side inductor (H)
+rf1 = 4.761e-4;             % Inverter-side resistance (Ohms)
+lf2 = 1e-20;                 % Grid-side inductor (H)
+rf2 = 1e-20;                   % Grid-side resistance (Ohms)
+cf = 534.86;                 % Filter capacitor (F)
+rd = 23.805e-3;                  % Damping resistor (Ohms)
 L_t = lf1 + lf2 + lg;
 f_res = (1/(2*pi)) * sqrt((lf1 + lf2 + lg) / (lf1 *(lf2+lg)* cf));
 f_ares = (1/(2*pi)) * sqrt(1 / (lf1 * cf));
