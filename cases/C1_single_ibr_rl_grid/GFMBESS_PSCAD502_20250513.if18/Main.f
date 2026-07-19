@@ -45,8 +45,7 @@
 ! Subroutine Arguments
 
 ! Electrical Node Indices
-      INTEGER  NT_1(3), NT_2(3), NT_7(3), NT_8(3)
-      INTEGER  NT_9(3)
+      INTEGER  NT_2(3)
 
 ! Control Signals
       INTEGER  IT_1, IT_2, IT_3, IT_4, IT_5, IT_6
@@ -56,15 +55,11 @@
       REAL     Vpoc_rms, Ppoc, Qpoc, Ipoc_rms
       REAL     Vsource, Pref_pu, Qref_pu, PFref
       REAL     Vref_pu, RT_5, RT_6, Fnom, RT_7
-      REAL     Rl1, Rl2, Ll1, Ll2, RT_8, RT_9(34)
+      REAL     Rl1, Rl2, Ll1, Ll2, RT_8
 
 ! Internal Variables
       LOGICAL  LVD1_1
-      INTEGER  BR_S_, BR_MA_, BR_MB_, BR_EA_
-      INTEGER  BR_ZA_, BR_CA_, BR_IA_, BR_EB_
-      INTEGER  BR_ZB_, BR_CB_, BR_IB_, NA_, NB_
-      INTEGER  NAM_, NBM_, NAI_, NBI_, NAIC_
-      INTEGER  NBIC_, NS_, IVD1_1
+      INTEGER  IVD1_1
       REAL     RVD1_1, RVD2_1(2), RVD1_2, RVD1_3
       REAL     RVD1_4, RVD1_5, RVD1_6, RVD1_7
 
@@ -102,14 +97,14 @@
       ISTOI     = NSTOI
       NSTOI     = NSTOI + 8
       ISTOF     = NSTOF
-      NSTOF     = NSTOF + 67
+      NSTOF     = NSTOF + 33
       NPGB      = NPGB + 10
       ICX       = NCX
       NCX       = NCX + 10
       INODE     = NNODE + 2
-      NNODE     = NNODE + 29
+      NNODE     = NNODE + 20
       IBRCH     = NBRCH(SS)
-      NBRCH(SS) = NBRCH(SS) + 33
+      NBRCH(SS) = NBRCH(SS) + 24
       NCSCS     = NCSCS + 0
       NCSCR     = NCSCR + 0
 
@@ -159,11 +154,6 @@
          Ipoc(IT_0) = STOF(ISTOF + 3 + IT_0)
       END DO
 
-! Array (1:34) quantities...
-      DO IT_0 = 1,34
-         RT_9(IT_0) = STOF(ISTOF + 33 + IT_0)
-      END DO
-
 
 !---------------------------------------
 ! Electrical Node Lookup 
@@ -172,11 +162,7 @@
 
 ! Array (1:3) quantities...
       DO IT_0 = 1,3
-         NT_1(IT_0) = NODE(INODE + 0 + IT_0)
          NT_2(IT_0) = NODE(INODE + 3 + IT_0)
-         NT_7(IT_0) = NODE(INODE + 18 + IT_0)
-         NT_8(IT_0) = NODE(INODE + 21 + IT_0)
-         NT_9(IT_0) = NODE(INODE + 24 + IT_0)
       END DO
 
 !---------------------------------------
@@ -195,116 +181,63 @@
 
 
 ! 10:[const] Real Constant 'MVA'
-      Sbase = 200.0
+      Sbase = 2.0
 
 ! 20:[const] Real Constant 'Hz'
       Fnom = 50.0
 
 ! 30:[const] Real Constant 'kV'
-      Vsource = 500.0
+      Vsource = 0.69
 
-! 40:[RZ] Rezonance module 
-
-
-
-
-
-      NA_ = -1
-      NB_ = -1
-      NAM_ = -1
-      NBM_ = -1
-      NAI_ = -1
-      NBI_ = -1
-      NAIC_ = -1
-      NBIC_ = -1
-      NS_ = -1
-
-      BR_S_ = -1
-      BR_MA_ = -1
-      BR_MB_ = -1
-
-      BR_EA_ = -1
-      BR_ZA_ = -1
-      BR_CA_ = -1
-      BR_IA_ = -1
-
-      BR_ZB_ = -1
-      BR_CB_ = -1
-      BR_EB_ = -1
-      BR_IB_ = -1
-
-      NA_ = NT_1(1)
-      NB_ = NT_7(1)
-      NAM_ = NT_8(1)
-      NBM_ = NT_9(1)
-
-      BR_MA_ =  (IBRCH+25)
-      BR_MB_ =  (IBRCH+28)
-
-
-
-      BR_EA_ =  (IBRCH+31)
-
-
-
-      CALL COMPONENT_ID(ICALL_NO,2101249384)
-      CALL DYN_RZ(1, 0, 0, 0, 1, 1,1, 0.0, 5.0, SS, BR_S_, BR_MA_, BR_MB&
-     &_,BR_EA_, BR_EB_, BR_CA_, BR_CB_, BR_IA_, BR_IB_, BR_ZA_, BR_ZB_,N&
-     &A_, NB_, NS_, 500.0, 100.0, 100.0, 50.0,(0.02, 0.1), (0.02, 0.1), &
-     &1.0e-06, 1.0e-12, 1.0e-20,1, 0, 0,0.0, 1.0, 10.0, 0.0,1.0, 10.0, 1&
-     &.0,0.0, 0.0, 0.001,3.0, 1.0, 0.5,0, 0, 0, 0,1, 1.0, 1000.0, 1.0, 1&
-     &001, 1001, 1,0.0, 0.0, 0.0, 0.0, 0.25,5, "_", "in_arr_f.txt", RT_9&
-     &)
+! 40:[var] Variable Input Slider 'Pref_pu'
+      Pref_pu = CX(CXMAP(ICX+1))
 
 ! 50:[var] Variable Input Slider 'V_source'
-      RT_4 = CX(CXMAP(ICX+1))
+      RT_4 = CX(CXMAP(ICX+2))
 
 ! 60:[mult] Multiplier 
       RT_1 = RT_4 * Vsource
 
-! 80:[var] Variable Input Slider 'Pref_pu'
-      Pref_pu = CX(CXMAP(ICX+2))
-
-! 90:[var] Variable Input Slider 'F_source'
+! 80:[var] Variable Input Slider 'F_source'
       RT_6 = CX(CXMAP(ICX+3))
 
-! 100:[mult] Multiplier 
+! 90:[mult] Multiplier 
       RT_2 = RT_6 * Fnom
 
-! 110:[time-sig] Output of Simulation Time 
+! 100:[time-sig] Output of Simulation Time 
       RT_5 = TIME
 
-! 120:[var] Variable Input Slider 'Ph0_source'
+! 110:[var] Variable Input Slider 'Ph0_source'
       RT_7 = CX(CXMAP(ICX+4))
 
-! 130:[compare] Single Input Level Comparator 
+! 120:[compare] Single Input Level Comparator 
 !
 !
       CALL EMTDC_X2COMP(0,0,0.1,RT_5,0.0,0.0,1.0,RVD2_1)
       IT_1 = NINT(RVD2_1(1))
 
-! 140:[const] Real Constant 
+! 130:[const] Real Constant 
       RT_8 = 90.0
 
-! 150:[var] Variable Input Slider 'Qref_pu'
+! 140:[var] Variable Input Slider 'Qref_pu'
       Qref_pu = CX(CXMAP(ICX+5))
 
-! 160:[var] Variable Input Slider 'Vref_pu'
+! 150:[var] Variable Input Slider 'Vref_pu'
       Vref_pu = CX(CXMAP(ICX+6))
 
-! 170:[var] Variable Input Slider 'PFref'
+! 160:[var] Variable Input Slider 'PFref'
       PFref = CX(CXMAP(ICX+7))
 
-! 180:[var] Variable Input Slider 'SCR'
+! 170:[var] Variable Input Slider 'SCR'
       SCR = CX(CXMAP(ICX+8))
 
-! 190:[var] Variable Input Slider 'XR'
+! 180:[var] Variable Input Slider 'XR'
       XR = CX(CXMAP(ICX+9))
 
-! 200:[var_pot] Rotary Switch 'Fault Type'
+! 190:[var_pot] Rotary Switch 'Fault Type'
       Fault_Type = NINT(CX(CXMAP(ICX+10)))
 
-! 220:[Sequencer_Start] Sequencer (Start of sequence of events) 
+! 210:[Sequencer_Start] Sequencer (Start of sequence of events) 
 ! Sequencer - Start
       IT_4 = 1
 ! Update PSCAD Graphics
@@ -317,7 +250,7 @@
       STORI(NSTORI) = IT_4
       NSTORI = NSTORI + 1
 
-! 230:[Sequencer_Wait] Sequencer (Wait for an event) 
+! 220:[Sequencer_Wait] Sequencer (Wait for an event) 
 ! Sequencer - Wait for Fixed Delay
       IT_5 = 0
       IF ( IT_4 .EQ. 1 ) THEN
@@ -343,7 +276,7 @@
       STORI(NSTORI) = IT_5
       NSTORI = NSTORI + 1
 
-! 240:[Sequencer_Fault] Sequencer (Apply/Clear Fault) 
+! 230:[Sequencer_Fault] Sequencer (Apply/Clear Fault) 
 ! Sequencer - Apply Fault
       IT_6 = 0
       IF ( IT_5 .EQ. 1 ) THEN
@@ -361,7 +294,7 @@
       NSTORI = NSTORI + 1
       Fault = Fault
 
-! 250:[Sequencer_Wait] Sequencer (Wait for an event) 
+! 240:[Sequencer_Wait] Sequencer (Wait for an event) 
 ! Sequencer - Wait for Fixed Delay
       IT_2 = 0
       IF ( IT_6 .EQ. 1 ) THEN
@@ -387,7 +320,7 @@
       STORI(NSTORI) = IT_2
       NSTORI = NSTORI + 1
 
-! 270:[Sequencer_Fault] Sequencer (Apply/Clear Fault) 
+! 260:[Sequencer_Fault] Sequencer (Apply/Clear Fault) 
 ! Sequencer - Remove Fault
       IT_3 = 0
       IF ( IT_2 .EQ. 1 ) THEN
@@ -405,7 +338,7 @@
       NSTORI = NSTORI + 1
       Fault = Fault
 
-! 320:[Grid_RL_Calc] Grid RL Calc 
+! 310:[Grid_RL_Calc] Grid RL Calc 
 !!!! Grid_RL_Calc
 !!!! Scripted by MHRavanji
 !!!! moh.ravanji@gmail.com
@@ -416,32 +349,32 @@
         Ll = 1/SCR/sqrt(1+1/(XR*XR))*Vsource*Vsource/Sbase/(2*3.14159265&
      &3589793*Fnom)
 
-! 330:[gain] Gain Block 
+! 320:[gain] Gain Block 
 !  Gain
       Ll2 = 0.2 * Ll
 
-! 340:[gain] Gain Block 
+! 330:[gain] Gain Block 
 !  Gain
       Ll1 = 0.8 * Ll
 
-! 350:[gain] Gain Block 
+! 340:[gain] Gain Block 
 !  Gain
       Rl2 = 0.2 * Rl
 
-! 360:[gain] Gain Block 
+! 350:[gain] Gain Block 
 !  Gain
       Rl1 = 0.8 * Rl
 
-! 370:[sumjct] Summing/Differencing Junctions 
+! 360:[sumjct] Summing/Differencing Junctions 
       RT_3 = + RT_8 + RT_7
 
-! 380:[BESS]  
+! 370:[BESS]  
       CALL BESSDyn(IT_1, Pref_pu, Qref_pu, Vref_pu, PFref, 0.5, 0.05, 10&
      &0.0, 2.0, Fnom, 0.69, 1.2, 5000.0, 0.1, 0.002, 0.04, 0.01, Sbase, &
      &Vsource, 33.0, 10.0)
 
 
-! 390:[tpflt] Three Phase Fault 
+! 380:[tpflt] Three Phase Fault 
       CALL E3PHFLT1_EXE(SS, (IBRCH+13), (IBRCH+14), (IBRCH+15), (IBRCH+1&
      &6), (IBRCH+17), (IBRCH+18),0,Fault,Fault_Type,0.0004)
       LVD1_1 = (OPENBR( (IBRCH+13),SS).AND.OPENBR( (IBRCH+14),SS).AND.OP&
@@ -454,31 +387,31 @@
       ENDIF
       NSTORI = NSTORI + 1
 
-! 400:[varrlc] Variable R, L or C  
+! 390:[varrlc] Variable R, L or C  
       CALL COMPONENT_ID(ICALL_NO,1329056424)
       CALL E_VARRLC1_EXE(0 ,SS ,  (IBRCH+22), 0, Rl1, 0.0)
       CALL E_VARRLC1_EXE(0 ,SS ,  (IBRCH+23), 0, Rl1, 0.0)
       CALL E_VARRLC1_EXE(0 ,SS ,  (IBRCH+24), 0, Rl1, 0.0)
 
-! 410:[varrlc] Variable R, L or C  
+! 400:[varrlc] Variable R, L or C  
       CALL COMPONENT_ID(ICALL_NO,1022206475)
       CALL E_VARRLC1_EXE(1 ,SS ,  (IBRCH+19), 0, Ll1, 0.0)
       CALL E_VARRLC1_EXE(1 ,SS ,  (IBRCH+20), 0, Ll1, 0.0)
       CALL E_VARRLC1_EXE(1 ,SS ,  (IBRCH+21), 0, Ll1, 0.0)
 
-! 420:[varrlc] Variable R, L or C  
+! 410:[varrlc] Variable R, L or C  
       CALL COMPONENT_ID(ICALL_NO,865855499)
       CALL E_VARRLC1_EXE(0 ,SS ,  (IBRCH+10), 0, Rl2, 0.0)
       CALL E_VARRLC1_EXE(0 ,SS ,  (IBRCH+11), 0, Rl2, 0.0)
       CALL E_VARRLC1_EXE(0 ,SS ,  (IBRCH+12), 0, Rl2, 0.0)
 
-! 430:[varrlc] Variable R, L or C  
+! 420:[varrlc] Variable R, L or C  
       CALL COMPONENT_ID(ICALL_NO,1944686776)
       CALL E_VARRLC1_EXE(1 ,SS ,  (IBRCH+7), 0, Ll2, 0.0)
       CALL E_VARRLC1_EXE(1 ,SS ,  (IBRCH+8), 0, Ll2, 0.0)
       CALL E_VARRLC1_EXE(1 ,SS ,  (IBRCH+9), 0, Ll2, 0.0)
 
-! 440:[source3] Three Phase Voltage Source Model 1 'Source1'
+! 430:[source3] Three Phase Voltage Source Model 1 'Source1'
 !  3-Phase source: Source1
       RVD1_1 = RT_1
       RVD1_2 = RT_2
@@ -533,11 +466,6 @@
          STOF(ISTOF + 3 + IT_0) = Ipoc(IT_0)
       END DO
 
-! Array (1:34) quantities...
-      DO IT_0 = 1,34
-         STOF(ISTOF + 33 + IT_0) = RT_9(IT_0)
-      END DO
-
 
 !---------------------------------------
 ! Transfer to Exports
@@ -590,7 +518,7 @@
 
 
 ! Electrical Node Indices
-      INTEGER  NT_1(3), NT_7(3), NT_8(3), NT_9(3)
+      INTEGER  NT_1(3)
 
 ! Control Signals
       REAL     Vpoc(3), Ipoc(3), Sbase, Vpoc_rms
@@ -598,11 +526,7 @@
       REAL     Fnom, RT_8
 
 ! Internal Variables
-      INTEGER  BR_S_, BR_MA_, BR_MB_, BR_EA_
-      INTEGER  BR_ZA_, BR_CA_, BR_IA_, BR_EB_
-      INTEGER  BR_ZB_, BR_CB_, BR_IB_, NA_, NB_
-      INTEGER  NAM_, NBM_, NAI_, NBI_, NAIC_
-      INTEGER  NBIC_, NS_, IVD1_1
+      INTEGER  IVD1_1
       REAL     RVD1_1
 
 ! Indexing variables
@@ -640,9 +564,9 @@
       NPGB      = NPGB + 10
       NCX       = NCX + 0
       INODE     = NNODE + 2
-      NNODE     = NNODE + 29
+      NNODE     = NNODE + 20
       IBRCH     = NBRCH(SS)
-      NBRCH(SS) = NBRCH(SS) + 33
+      NBRCH(SS) = NBRCH(SS) + 24
       NCSCS     = NCSCS + 0
       NCSCR     = NCSCR + 0
 
@@ -674,9 +598,6 @@
 ! Array (1:3) quantities...
       DO IT_0 = 1,3
          NT_1(IT_0) = NODE(INODE + 0 + IT_0)
-         NT_7(IT_0) = NODE(INODE + 18 + IT_0)
-         NT_8(IT_0) = NODE(INODE + 21 + IT_0)
-         NT_9(IT_0) = NODE(INODE + 24 + IT_0)
       END DO
 
 !---------------------------------------
@@ -696,7 +617,7 @@
 
 ! 10:[const] Real Constant 'MVA'
 
-      Sbase = 200.0
+      Sbase = 2.0
 
 ! 20:[const] Real Constant 'Hz'
 
@@ -704,58 +625,7 @@
 
 ! 30:[const] Real Constant 'kV'
 
-      Vsource = 500.0
-
-! 40:[RZ] Rezonance module 
-
-
-
-
-
-      NA_ = -1
-      NB_ = -1
-      NAM_ = -1
-      NBM_ = -1
-      NAI_ = -1
-      NBI_ = -1
-      NAIC_ = -1
-      NBIC_ = -1
-      NS_ = -1
-
-      BR_S_ = -1
-      BR_MA_ = -1
-      BR_MB_ = -1
-
-      BR_EA_ = -1
-      BR_ZA_ = -1
-      BR_CA_ = -1
-      BR_IA_ = -1
-
-      BR_ZB_ = -1
-      BR_CB_ = -1
-      BR_EB_ = -1
-      BR_IB_ = -1
-
-      NA_ = NT_1(1)
-      NB_ = NT_7(1)
-      NAM_ = NT_8(1)
-      NBM_ = NT_9(1)
-
-      BR_MA_ =  (IBRCH+25)
-      BR_MB_ =  (IBRCH+28)
-
-
-
-      BR_EA_ =  (IBRCH+31)
-
-
-      CALL COMPONENT_ID(ICALL_NO,2101249384)
-      CALL OUT_RZ(1, 0, 0, 0, 1, 1,1, 0.0, 5.0, SS, BR_S_, BR_MA_, BR_MB&
-     &_,BR_EA_, BR_EB_, BR_CA_, BR_CB_, BR_IA_, BR_IB_, BR_ZA_, BR_ZB_,N&
-     &A_, NB_, NS_, 500.0, 100.0, 100.0, 50.0,(0.02, 0.1), (0.02, 0.1), &
-     &1.0e-06, 1.0e-12, 1.0e-20,1, 0, 0,0.0, 1.0, 10.0, 0.0,1.0, 10.0, 1&
-     &.0,0.0, 0.0, 0.001,3.0, 1.0, 0.5,0, 0, 0, 0,1, 1.0, 1000.0, 1.0, 1&
-     &001, 1001, 1,0.0, 0.0, 0.0, 0.0, 0.25,5, "_", "in_arr_f.txt")
+      Vsource = 0.69
 
 ! 70:[multimeter] Multimeter 
       IVD1_1 = NRTCF
@@ -763,9 +633,9 @@
       Ipoc(1) = ( CBR((IBRCH+1), SS))
       Ipoc(2) = ( CBR((IBRCH+2), SS))
       Ipoc(3) = ( CBR((IBRCH+3), SS))
-      Vpoc(1) = EMTDC_VVDC(SS, NT_7(1), 0)
-      Vpoc(2) = EMTDC_VVDC(SS, NT_7(2), 0)
-      Vpoc(3) = EMTDC_VVDC(SS, NT_7(3), 0)
+      Vpoc(1) = EMTDC_VVDC(SS, NT_1(1), 0)
+      Vpoc(2) = EMTDC_VVDC(SS, NT_1(2), 0)
+      Vpoc(3) = EMTDC_VVDC(SS, NT_1(3), 0)
       RVD1_1 = RTCF(IVD1_1) * P3PH3(SS, (IBRCH+1), (IBRCH+2), (IBRCH+3),&
      &RTCF(IVD1_1+2),0)
       IF (UPDATE_AG) CALL PSCAD_AGR2(ICALL_NO,448234021,RVD1_1,"Pd")
@@ -774,7 +644,7 @@
      &RTCF(IVD1_1+2),0)
       IF (UPDATE_AG) CALL PSCAD_AGR2(ICALL_NO,448234021,RVD1_1,"Qd")
       Qpoc = RVD1_1
-      CALL DGTL_RMS3(256,SS,NT_7(1),NT_7(2),NT_7(3),RTCF(IVD1_1+3),1.0,0&
+      CALL DGTL_RMS3(256,SS,NT_1(1),NT_1(2),NT_1(3),RTCF(IVD1_1+3),1.0,0&
      &.0,RVD1_1)
       RVD1_1 = RTCF(IVD1_1+1)*RVD1_1
       IF (UPDATE_AG) CALL PSCAD_AGR2(ICALL_NO,448234021,RVD1_1,"Vd")
@@ -787,43 +657,43 @@
         CALL PSCAD_AGI2(ICALL_NO,448234021,1,"hide2")
       ENDIF
 
-! 140:[const] Real Constant 
+! 130:[const] Real Constant 
 
       RT_8 = 90.0
 
-! 210:[pgb] Output Channel 'Ppoc'
+! 200:[pgb] Output Channel 'Ppoc'
 
       PGB(IPGB+1) = Ppoc
 
-! 260:[pgb] Output Channel 'Qpoc'
+! 250:[pgb] Output Channel 'Qpoc'
 
       PGB(IPGB+2) = Qpoc
 
-! 280:[pgb] Output Channel 'Vpoc'
+! 270:[pgb] Output Channel 'Vpoc'
 
       DO IVD1_1 = 1, 3
          PGB(IPGB+3+IVD1_1-1) = Vpoc(IVD1_1)
       ENDDO
 
-! 290:[pgb] Output Channel 'Ipoc'
+! 280:[pgb] Output Channel 'Ipoc'
 
       DO IVD1_1 = 1, 3
          PGB(IPGB+6+IVD1_1-1) = Ipoc(IVD1_1)
       ENDDO
 
-! 300:[pgb] Output Channel 'Vpoc_rms'
+! 290:[pgb] Output Channel 'Vpoc_rms'
 
       PGB(IPGB+9) = Vpoc_rms
 
-! 310:[pgb] Output Channel 'Ipoc_rms'
+! 300:[pgb] Output Channel 'Ipoc_rms'
 
       PGB(IPGB+10) = Ipoc_rms
 
-! 380:[BESS]  
+! 370:[BESS]  
       CALL BESSOut()
 
 
-! 390:[tpflt] Three Phase Fault 
+! 380:[tpflt] Three Phase Fault 
 !
 ! Multi-phase Fault Currents
 !
@@ -888,17 +758,11 @@
 ! Subroutine Arguments
 
 ! Electrical Node Indices
-      INTEGER  NT_1(3), NT_7(3), NT_8(3), NT_9(3)
 
 ! Control Signals
       REAL     Sbase, Vsource, Fnom, RT_8
 
 ! Internal Variables
-      INTEGER  BR_S_, BR_MA_, BR_MB_, BR_EA_
-      INTEGER  BR_ZA_, BR_CA_, BR_IA_, BR_EB_
-      INTEGER  BR_ZB_, BR_CB_, BR_IB_, NA_, NB_
-      INTEGER  NAM_, NBM_, NAI_, NBI_, NAIC_
-      INTEGER  NBIC_, NS_
       REAL     RVD1_1, RVD1_2
 
 ! Indexing variables
@@ -927,9 +791,9 @@
       ICX       = NCX
       NCX       = NCX + 10
       INODE     = NNODE + 2
-      NNODE     = NNODE + 29
+      NNODE     = NNODE + 20
       IBRCH     = NBRCH(SS)
-      NBRCH(SS) = NBRCH(SS) + 33
+      NBRCH(SS) = NBRCH(SS) + 24
       NCSCS     = NCSCS + 0
       NCSCR     = NCSCR + 0
 
@@ -938,113 +802,54 @@
 !---------------------------------------
 
 
-! Array (1:3) quantities...
-      DO IT_0 = 1,3
-         NT_1(IT_0) = NODE(INODE + 0 + IT_0)
-         NT_7(IT_0) = NODE(INODE + 18 + IT_0)
-         NT_8(IT_0) = NODE(INODE + 21 + IT_0)
-         NT_9(IT_0) = NODE(INODE + 24 + IT_0)
-      END DO
-
 !---------------------------------------
 ! Generated code from module definition 
 !---------------------------------------
 
 
 ! 10:[const] Real Constant 'MVA'
-      Sbase = 200.0
+      Sbase = 2.0
 
 ! 20:[const] Real Constant 'Hz'
       Fnom = 50.0
 
 ! 30:[const] Real Constant 'kV'
-      Vsource = 500.0
+      Vsource = 0.69
 
-! 40:[RZ] Rezonance module 
-
-
-
-
-      NA_ = -1
-      NB_ = -1
-      NAM_ = -1
-      NBM_ = -1
-      NAI_ = -1
-      NBI_ = -1
-      NAIC_ = -1
-      NBIC_ = -1
-      NS_ = -1
-
-      BR_S_ = -1
-      BR_MA_ = -1
-      BR_MB_ = -1
-
-      BR_EA_ = -1
-      BR_ZA_ = -1
-      BR_CA_ = -1
-      BR_IA_ = -1
-
-      BR_ZB_ = -1
-      BR_CB_ = -1
-      BR_EB_ = -1
-      BR_IB_ = -1
-
-      NA_ = NT_1(1)
-      NB_ = NT_7(1)
-      NAM_ = NT_8(1)
-      NBM_ = NT_9(1)
-
-      BR_MA_ =  (IBRCH+25)
-      BR_MB_ =  (IBRCH+28)
-
-
-
-      BR_EA_ =  (IBRCH+31)
-
-
-
-      CALL COMPONENT_ID(ICALL_NO,2101249384)
-      CALL BGN_D_RZ(1, 0, 0, 0, 1, 1,1, 0.0, 5.0, SS, BR_S_, BR_MA_, BR_&
-     &MB_,BR_EA_, BR_EB_, BR_CA_, BR_CB_, BR_IA_, BR_IB_, BR_ZA_, BR_ZB_&
-     &,NA_, NB_, NS_, 500.0, 100.0, 100.0, 50.0,(0.02, 0.1), (0.02, 0.1)&
-     &, 1.0e-06, 1.0e-12, 1.0e-20,1, 0, 0,0.0, 1.0, 10.0, 0.0,1.0, 10.0,&
-     & 1.0,0.0, 0.0, 0.001,3.0, 1.0, 0.5,0, 0, 0, 0,1, 1.0, 1000.0, 1.0,&
-     & 1001, 1001, 1,0.0, 0.0, 0.0, 0.0, 0.25,5, "_", "in_arr_f.txt")
-
-
+! 40:[var] Variable Input Slider 'Pref_pu'
 
 ! 50:[var] Variable Input Slider 'V_source'
 
 ! 60:[mult] Multiplier 
 
-! 80:[var] Variable Input Slider 'Pref_pu'
+! 80:[var] Variable Input Slider 'F_source'
 
-! 90:[var] Variable Input Slider 'F_source'
+! 90:[mult] Multiplier 
 
-! 100:[mult] Multiplier 
+! 100:[time-sig] Output of Simulation Time 
 
-! 110:[time-sig] Output of Simulation Time 
+! 110:[var] Variable Input Slider 'Ph0_source'
 
-! 120:[var] Variable Input Slider 'Ph0_source'
+! 120:[compare] Single Input Level Comparator 
 
-! 130:[compare] Single Input Level Comparator 
-
-! 140:[const] Real Constant 
+! 130:[const] Real Constant 
       RT_8 = 90.0
 
-! 150:[var] Variable Input Slider 'Qref_pu'
+! 140:[var] Variable Input Slider 'Qref_pu'
 
-! 160:[var] Variable Input Slider 'Vref_pu'
+! 150:[var] Variable Input Slider 'Vref_pu'
 
-! 170:[var] Variable Input Slider 'PFref'
+! 160:[var] Variable Input Slider 'PFref'
 
-! 180:[var] Variable Input Slider 'SCR'
+! 170:[var] Variable Input Slider 'SCR'
 
-! 190:[var] Variable Input Slider 'XR'
+! 180:[var] Variable Input Slider 'XR'
 
-! 200:[var_pot] Rotary Switch 'Fault Type'
+! 190:[var_pot] Rotary Switch 'Fault Type'
 
-! 320:[Grid_RL_Calc] Grid RL Calc 
+! 310:[Grid_RL_Calc] Grid RL Calc 
+
+! 320:[gain] Gain Block 
 
 ! 330:[gain] Gain Block 
 
@@ -1052,39 +857,37 @@
 
 ! 350:[gain] Gain Block 
 
-! 360:[gain] Gain Block 
+! 360:[sumjct] Summing/Differencing Junctions 
 
-! 370:[sumjct] Summing/Differencing Junctions 
-
-! 380:[BESS]  
+! 370:[BESS]  
       CALL BESSDyn_Begin(0.5, 0.05, 100.0, 2.0, Fnom, 0.69, 1.2, 5000.0,&
      & 0.1, 0.002, 0.04, Sbase, Vsource, 33.0)
 
 
-! 390:[tpflt] Three Phase Fault 
+! 380:[tpflt] Three Phase Fault 
       CALL E3PHFLT1_CFG(10000000000.0,0.0)
 
-! 400:[varrlc] Variable R, L or C  
+! 390:[varrlc] Variable R, L or C  
       CALL E_VARRLC1_CFG(0 ,SS ,  (IBRCH+22), 0)
       CALL E_VARRLC1_CFG(0 ,SS ,  (IBRCH+23), 0)
       CALL E_VARRLC1_CFG(0 ,SS ,  (IBRCH+24), 0)
 
-! 410:[varrlc] Variable R, L or C  
+! 400:[varrlc] Variable R, L or C  
       CALL E_VARRLC1_CFG(1 ,SS ,  (IBRCH+19), 0)
       CALL E_VARRLC1_CFG(1 ,SS ,  (IBRCH+20), 0)
       CALL E_VARRLC1_CFG(1 ,SS ,  (IBRCH+21), 0)
 
-! 420:[varrlc] Variable R, L or C  
+! 410:[varrlc] Variable R, L or C  
       CALL E_VARRLC1_CFG(0 ,SS ,  (IBRCH+10), 0)
       CALL E_VARRLC1_CFG(0 ,SS ,  (IBRCH+11), 0)
       CALL E_VARRLC1_CFG(0 ,SS ,  (IBRCH+12), 0)
 
-! 430:[varrlc] Variable R, L or C  
+! 420:[varrlc] Variable R, L or C  
       CALL E_VARRLC1_CFG(1 ,SS ,  (IBRCH+7), 0)
       CALL E_VARRLC1_CFG(1 ,SS ,  (IBRCH+8), 0)
       CALL E_VARRLC1_CFG(1 ,SS ,  (IBRCH+9), 0)
 
-! 440:[source3] Three Phase Voltage Source Model 1 'Source1'
+! 430:[source3] Three Phase Voltage Source Model 1 'Source1'
       CALL COMPONENT_ID(ICALL_NO,633943515)
       RVD1_1 = 1.0
       RVD1_2 = 0.1
@@ -1127,17 +930,13 @@
 ! Subroutine Arguments
 
 ! Electrical Node Indices
-      INTEGER  NT_1(3), NT_7(3), NT_8(3), NT_9(3)
+      INTEGER  NT_1(3)
 
 ! Control Signals
       REAL     Sbase, Vsource, Fnom, RT_8
 
 ! Internal Variables
-      INTEGER  BR_S_, BR_MA_, BR_MB_, BR_EA_
-      INTEGER  BR_ZA_, BR_CA_, BR_IA_, BR_EB_
-      INTEGER  BR_ZB_, BR_CB_, BR_IB_, NA_, NB_
-      INTEGER  NAM_, NBM_, NAI_, NBI_, NAIC_
-      INTEGER  NBIC_, NS_, IVD1_1
+      INTEGER  IVD1_1
 
 ! Indexing variables
       INTEGER ICALL_NO                            ! Module call num
@@ -1163,9 +962,9 @@
 
       NCX       = NCX + 0
       INODE     = NNODE + 2
-      NNODE     = NNODE + 29
+      NNODE     = NNODE + 20
       IBRCH     = NBRCH(SS)
-      NBRCH(SS) = NBRCH(SS) + 33
+      NBRCH(SS) = NBRCH(SS) + 24
       NCSCS     = NCSCS + 0
       NCSCR     = NCSCR + 0
 
@@ -1177,9 +976,6 @@
 ! Array (1:3) quantities...
       DO IT_0 = 1,3
          NT_1(IT_0) = NODE(INODE + 0 + IT_0)
-         NT_7(IT_0) = NODE(INODE + 18 + IT_0)
-         NT_8(IT_0) = NODE(INODE + 21 + IT_0)
-         NT_9(IT_0) = NODE(INODE + 24 + IT_0)
       END DO
 
 !---------------------------------------
@@ -1188,64 +984,13 @@
 
 
 ! 10:[const] Real Constant 'MVA'
-      Sbase = 200.0
+      Sbase = 2.0
 
 ! 20:[const] Real Constant 'Hz'
       Fnom = 50.0
 
 ! 30:[const] Real Constant 'kV'
-      Vsource = 500.0
-
-! 40:[RZ] Rezonance module 
-
-
-
-
-      NA_ = -1
-      NB_ = -1
-      NAM_ = -1
-      NBM_ = -1
-      NAI_ = -1
-      NBI_ = -1
-      NAIC_ = -1
-      NBIC_ = -1
-      NS_ = -1
-
-      BR_S_ = -1
-      BR_MA_ = -1
-      BR_MB_ = -1
-
-      BR_EA_ = -1
-      BR_ZA_ = -1
-      BR_CA_ = -1
-      BR_IA_ = -1
-
-      BR_ZB_ = -1
-      BR_CB_ = -1
-      BR_EB_ = -1
-      BR_IB_ = -1
-
-      NA_ = NT_1(1)
-      NB_ = NT_7(1)
-      NAM_ = NT_8(1)
-      NBM_ = NT_9(1)
-
-      BR_MA_ =  (IBRCH+25)
-      BR_MB_ =  (IBRCH+28)
-
-
-
-      BR_EA_ =  (IBRCH+31)
-
-
-      CALL COMPONENT_ID(ICALL_NO,2101249384)
-      CALL BGN_O_RZ(1, 0, 0, 0, 1, 1,1, 0.0, 5.0, SS, BR_S_, BR_MA_, BR_&
-     &MB_,BR_EA_, BR_EB_, BR_CA_, BR_CB_, BR_IA_, BR_IB_, BR_ZA_, BR_ZB_&
-     &,NA_, NB_, NS_, 500.0, 100.0, 100.0, 50.0,(0.02, 0.1), (0.02, 0.1)&
-     &, 1.0e-06, 1.0e-12, 1.0e-20,1, 0, 0,0.0, 1.0, 10.0, 0.0,1.0, 10.0,&
-     & 1.0,0.0, 0.0, 0.001,3.0, 1.0, 0.5,0, 0, 0, 0,1, 1.0, 1000.0, 1.0,&
-     & 1001, 1001, 1,0.0, 0.0, 0.0, 0.0, 0.25,5, "_", "in_arr_f.txt")
-
+      Vsource = 0.69
 
 ! 70:[multimeter] Multimeter 
       IVD1_1 = NRTCF
@@ -1268,22 +1013,22 @@
         RTCF(IVD1_1+4) = 1.0
       ENDIF
 
-! 140:[const] Real Constant 
+! 130:[const] Real Constant 
       RT_8 = 90.0
 
-! 210:[pgb] Output Channel 'Ppoc'
+! 200:[pgb] Output Channel 'Ppoc'
 
-! 260:[pgb] Output Channel 'Qpoc'
+! 250:[pgb] Output Channel 'Qpoc'
 
-! 280:[pgb] Output Channel 'Vpoc'
+! 270:[pgb] Output Channel 'Vpoc'
 
-! 290:[pgb] Output Channel 'Ipoc'
+! 280:[pgb] Output Channel 'Ipoc'
 
-! 300:[pgb] Output Channel 'Vpoc_rms'
+! 290:[pgb] Output Channel 'Vpoc_rms'
 
-! 310:[pgb] Output Channel 'Ipoc_rms'
+! 300:[pgb] Output Channel 'Ipoc_rms'
 
-! 380:[BESS]  
+! 370:[BESS]  
       CALL BESSOut_Begin(0.5, 0.05, 100.0, 2.0, Fnom, 0.69, 1.2, 5000.0,&
      & 0.1, 0.002, 0.04, Sbase, Vsource, 33.0)
 

@@ -1,0 +1,179 @@
+clc; close all;clear all
+
+main_dir = 'C:\Users\erict\rezonance-external-methods-fyp\scripts\student_C';
+cd(main_dir)
+run("GFMI_Eric_Model_LC.mlx")
+
+%Run VSG_model.mlx to obtain all the individual state space matricies for
+%individual componeents, then convert those matricies to transfer functions
+
+
+
+main_dir='C:\Users\erict\rezonance-external-methods-fyp\scripts\student_C'; % set this to your parent directory-whereever you have this file
+MatPower_path='C:\matpower8.1'; %Directry where you have Matpower installed
+
+cd(main_dir)
+addpath(genpath(MatPower_path));
+
+GFMI_1 = Unified_GFMI;
+
+load("Parameters_LC.mat")
+
+%%
+%run powerflow analysis for Vdq0 and Idq0 and angle0
+mpc = SMIB_PowerFlow(rg,lg);  
+
+% Run the power flow for this operating point
+PowerFlow_results = runpf(mpc);
+
+% Extract bus 1 angle (in degrees) and voltage magnitude (p.u)
+Angle = PowerFlow_results.bus(1,9);
+Voltage_mag = PowerFlow_results.bus(1,8);
+
+% Calculate space phasors
+Angle_rad = deg2rad(Angle);
+Vc_phasor = Voltage_mag * V_LL/sqrt(3) * exp(1j * Angle_rad); % line-to-neutral voltage
+Vg_phasor = V_LL/sqrt(3);
+
+% Compute impedance values (assuming these parameters are constant)
+Zg = (rg + 1j * 2*pi*50 * lg);
+
+
+% Calculate current and PCC voltage phasors
+Ig_phasor = (Vc_phasor - Vg_phasor) / Zg;
+
+% Store operating point values
+delta0 = Angle_rad;   
+
+Vg_D0 = real(Vg_phasor);
+Vg_Q0 = imag(Vg_phasor);
+
+% Transform Vc phasor into d–q components
+Vc_dq0 = Vc_phasor * exp(-1j * Angle_rad) * sqrt(2);
+Vc_d0 = real(Vc_dq0);
+Vc_q0 = imag(Vc_dq0);
+
+% Transform I2 phasor into d–q components
+Ig_dq0 = Ig_phasor * exp(-1j * Angle_rad) * sqrt(2);
+ig_d0 = real(Ig_dq0);
+ig_q0 = imag(Ig_dq0);
+%% Closed Loop Substitution
+% 1. List ALL symbolic targets for the FULL system
+sym_targets = {'Vc_d0', 'Vc_q0', 'beta_i', 'beta_v', 'cf', 'delta0', ...
+               'ig_d0', 'ig_q0', 'k_ii', 'k_pi', 'k_iv', 'k_pv', ...
+               'lf1', 'lg', 'rd', 'rf1', 'rg', 'w', 'wn','td', ...
+               'mp', 'wc_p', 'V_set', 'nq', 'wc', 'R_vir', 'X_vir', ... 
+               'Vg_D0', 'Vg_Q0'}; 
+
+% 2. List the exact workspace variables to substitute 
+num_values  = {Vc_d0, Vc_q0, beta_i, beta_v, cf, delta0, ...
+               ig_d0, ig_q0, k_ii, k_pi, k_iv, k_pv, ...
+               lf1, lg, rd, rf1, rg, w, wn, td, ...
+               mp, wc_p, V_set, nq, wc_q, R_vir, X_vir, ...
+               Vg_D0, Vg_Q0}; 
+
+% 3. Substitute values into the FULL Unified System Matrices
+
+A_num = double(subs(A_sys0, sym_targets, num_values));
+B_num = double(subs(B_sys0, sym_targets, num_values));
+C_num = double(subs(C_sys0, sym_targets, num_values));
+D_num = double(subs(D_sys0, sym_targets, num_values));
+
+%% --- Create State-Space Model ---
+% Build the full system
+sys_full = ss(A_num, B_num, C_num, D_num);
+
+%from the impedance state space model. 
+% Inputs is U_sys = [p_ref; q_ref; Vg_D; Vg_Q];
+% Outputs is Ystac = [i1_d; i1_q; Vc_d; Vc_q; p_m; q_m];
+
+% Admittance is 1/Z or I/V. Where I is the output and V is the input. 
+%To get the matrices, just change the indices. 
+
+
+% Extract Admittance Transfer Functions
+% Input 3 = Vg_D, Input 4 = Vg_Q
+% Output 1 = i1_d, Output 2 = i1_q 
+Y_dd = sys_full(1, 3); % D-axis Admittance (Delta i1_d / Delta Vg_D)
+Y_qq = sys_full(2, 4); % Q-axis Admittance (Delta i1_q / Delta Vg_Q)
+Y_dq = sys_full(1, 4); % Cross-coupling (Delta i1_d / Delta Vg_Q)
+Y_qd = sys_full(2, 3); % Cross-coupling (Delta i1_q / Delta Vg_D)
+
+%% Reading CSV data
+csvData = readtable('S.csv', 'NumHeaderLines', 1);
+% Extract frequencies and convert CSV magnitudes to dB
+csv_f   = csvData.Var1;
+csv_dd_db = 20*log10(abs(csvData.Var2));
+csv_dq_db = 20*log10(abs(csvData.Var3));
+csv_qd_db = 20*log10(abs(csvData.Var4));
+csv_qq_db = 20*log10(abs(csvData.Var5));
+%% --- Plotting the Admittance Matrix (Magnitudes Only) ---
+frequencies_Hz = logspace(0, 4, 1000); % Sweep from 1 Hz to 1000 Hz
+frequencies_rad = 2 * pi * frequencies_Hz;
+
+% 1. Get Bode magnitude data. (no phase) 
+[mag_dd, ~] = bode(Y_dd, frequencies_rad);
+[mag_dq, ~] = bode(Y_dq, frequencies_rad);
+[mag_qd, ~] = bode(Y_qd, frequencies_rad);
+[mag_qq, ~] = bode(Y_qq, frequencies_rad);
+
+% 2. Convert magnitude to dB
+mag_dd_db = 20*log10(squeeze(mag_dd)); 
+mag_dq_db = 20*log10(squeeze(mag_dq));
+mag_qd_db = 20*log10(squeeze(mag_qd));
+mag_qq_db = 20*log10(squeeze(mag_qq));
+
+% 3. Create the 2x2 Figure
+figure('Color', 'w', 'Position', [100, 100, 1000, 700]); 
+sgtitle('Analytical GFMI Admittance', 'Color', 'k', 'FontWeight', 'bold', 'FontSize', 16);
+
+
+%-- TOP LEFT: Y_dd Magnitude ---
+subplot(2,2,1);
+semilogx(frequencies_Hz, mag_dd_db, 'b', 'LineWidth', 1.5);
+hold on
+semilogx(csv_f, csv_dd_db, 'ro--', 'LineWidth', 1.2, 'MarkerSize', 4); % CSV points
+hold off
+grid on; 
+ylabel('Magnitude (dB)'); 
+xlabel('Frequency (Hz)');
+title('d-d Axis Admittance (Y_{dd})');
+xlim([1, 10000]);
+ylim([-60, 60])
+
+% --- TOP RIGHT: Y_dq Magnitude ---
+subplot(2,2,2);
+semilogx(frequencies_Hz, mag_dq_db, 'g', 'LineWidth', 1.5);
+hold on
+semilogx(csv_f, csv_dq_db, 'ko--', 'LineWidth', 1.2, 'MarkerSize', 4); % CSV points
+hold off
+grid on; 
+ylabel('Magnitude (dB)'); 
+xlabel('Frequency (Hz)');
+title('d-q Cross-Coupling Admittance (Y_{dq})');
+xlim([1, 10000]);
+ylim([-60, 60])
+%--- BOTTOM LEFT: Y_qd Magnitude ---
+subplot(2,2,3);
+semilogx(frequencies_Hz, mag_qd_db, 'm', 'LineWidth', 1.5);
+hold on
+semilogx(csv_f, csv_qd_db, 'ko--', 'LineWidth', 1.2, 'MarkerSize', 4); % CSV points
+hold off
+grid on; 
+ylabel('Magnitude (dB)'); 
+xlabel('Frequency (Hz)');
+title('q-d Cross-Coupling Admittance (Y_{qd})');
+xlim([1, 10000]);
+ylim([-60, 60])
+%--- BOTTOM RIGHT: Y_qq Magnitude ---
+subplot(2,2,4);
+semilogx(frequencies_Hz, mag_qq_db, 'r', 'LineWidth', 1.5);
+hold on
+semilogx(csv_f, csv_qq_db, 'bo--', 'LineWidth', 1.2, 'MarkerSize', 4); % CSV points
+hold off
+grid on; 
+ylabel('Magnitude (dB)'); 
+xlabel('Frequency (Hz)');
+title('q-q Axis Admittance (Y_{qq})');
+xlim([1, 10000]);
+ylim([-60, 60])

@@ -1,6 +1,6 @@
 %% Power Injection Setpoints
-P_inj = 1.6;                 % Active power injection (pu)
-Q_inj = 0.2;                 % Reactive power injection (pu)
+P_inj = 1.61;                 % Active power injection (pu)
+Q_inj = 0.1932;                 % Reactive power injection (pu)
 %% General System Parameters
 f_base = 50;                 % Base frequency (Hz)
 wn = 2 * pi * f_base;        % Angular base frequency (rad/s)
@@ -30,20 +30,8 @@ fsw = 5e3;                   % Switching frequency (Hz)
 td = 1.5 / fsw;              % Delay accounting for inner control loops (s)
 
 %% LCL Filter Parameters (TO change) 
-<<<<<<< Updated upstream
-lf1 = 7.577e-5;                % Inverter-side inductor (H)
-rf1 = 4.761e-4;             % Inverter-side resistance (Ohms)
-lf2 = 1e-20;                 % Grid-side inductor (H)
-rf2 = 1e-20;                   % Grid-side resistance (Ohms)
-cf = 534.86;                 % Filter capacitor (F)
-rd = 23.805e-3;                  % Damping resistor (Ohms)
-L_t = lf1 + lf2 + lg;
-f_res = (1/(2*pi)) * sqrt((lf1 + lf2 + lg) / (lf1 *(lf2+lg)* cf));
-f_ares = (1/(2*pi)) * sqrt(1 / (lf1 * cf));
-=======
 lf1 = 0.1 * Lb;                % Inverter-side inductor (H)
 rf1 = 0.002 * Zb;             % Inverter-side resistance (Ohms)
->>>>>>> Stashed changes
 
 lf2 = 0.0002;                 % Grid-side inductor (H)
 rf2 = 0.002; 

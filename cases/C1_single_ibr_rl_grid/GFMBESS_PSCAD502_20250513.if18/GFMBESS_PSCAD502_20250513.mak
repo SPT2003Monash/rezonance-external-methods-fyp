@@ -82,10 +82,6 @@ Link        = $(Link_Name) $(Link_Args) $(Link_Debug)
 #------------------------------------------------------------------------------
 
 
-rezonance_if18_1.lib: 
-	@echo !--Copy: "C:\Users\erict\Downloads\drive-download-20260413T095038Z-3-001 (1)\pscad_module\lib\if18\rezonance_if18.lib"
-	copy "C:\Users\erict\Downloads\drive-download-20260413T095038Z-3-001 (1)\pscad_module\lib\if18\rezonance_if18.lib" "rezonance_if18_1.lib"
-
 #------------------------------------------------------------------------------
 # Dependencies
 #------------------------------------------------------------------------------
@@ -121,8 +117,7 @@ FC_Objects = \
  Virtual_Impedance.$(FC_Suffix) \
  Parameters_Filters.$(FC_Suffix) \
  ConvBridge_IGBT.$(FC_Suffix) \
- PWM.$(FC_Suffix) \
- Harmonic_Filter.$(FC_Suffix)
+ PWM.$(FC_Suffix)
 
 FC_ObjectsLong = \
  "Station.$(FC_Suffix)" \
@@ -154,18 +149,15 @@ FC_ObjectsLong = \
  "Virtual_Impedance.$(FC_Suffix)" \
  "Parameters_Filters.$(FC_Suffix)" \
  "ConvBridge_IGBT.$(FC_Suffix)" \
- "PWM.$(FC_Suffix)" \
- "Harmonic_Filter.$(FC_Suffix)"
+ "PWM.$(FC_Suffix)"
 
 CC_Objects =
 
 CC_ObjectsLong =
 
-LK_Objects = \
-  rezonance_if18_1.lib
+LK_Objects =
 
-LK_ObjectsLong = \
-  "rezonance_if18_1.lib"
+LK_ObjectsLong =
 
 SysLibs  = ws2_32.lib
 

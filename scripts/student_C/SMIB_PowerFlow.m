@@ -6,25 +6,25 @@ rg=rg;lg=lg;
 define_constants;  % Load MATPOWER constants
 
 mpc.version = '2';  % MATPOWER format version
-mpc.baseMVA = 1;    % Base power set to 1 MVA (per-unit system)
+mpc.baseMVA = 2;    % Base power set to 1 MVA (per-unit system)
 
 %% -------------------------
 % Load System Parameters from "Parameters.mat"
 % -------------------------
-load('Parameters.mat', 'rf2', 'lf2', 'V_LL', 'P_inj', 'Q_inj');
+load('Parameters_E1.mat', 'rf2', 'lf2', 'V_LL', 'P_inj', 'Q_inj');
 
 % -------------------------
 % Base Value Calculations
 % -------------------------
-Vbase_LL = V_LL/1e3;  % Line-to-line voltage base (kV)
+Vbase_LL = V_LL/(1e3);  % Line-to-line voltage base (kV)
 Vbase_LN = Vbase_LL / sqrt(3);  % Line-to-neutral base voltage (kV)
-Sbase = 1;  % Base power (MVA)
+Sbase = 2;  % Base power (MVA)
 Zbase = (Vbase_LL^2) / Sbase;  % Base impedance (Ω)
 Ibase = Sbase / (sqrt(3) * Vbase_LL);  % Base current (kA)
 
 % Convert to per-unit
-rtotal = (rf2 + rg) / Zbase;  % Resistance in per-unit
-xtotal = (lf2 + lg) * (2 * pi * 50) / Zbase;  % Reactance in per-unit (assuming 50Hz system)
+rtotal = (rf2) / Zbase;  % Resistance in per-unit
+xtotal = (lf2) * (2 * pi * 50) / Zbase;  % Reactance in per-unit (assuming 50Hz system)
 
 % -------------------------
 % BUS DATA

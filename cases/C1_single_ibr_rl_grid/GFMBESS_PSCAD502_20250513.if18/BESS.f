@@ -39,7 +39,6 @@
 
 !     SUBR    PPCDyn        ! Power Plant Controller
 !     SUBR    BatteryDyn    ! 
-!     SUBR    Harmonic_FilterDyn  ! Harmonic Filter
 
 !---------------------------------------
 ! Variable Declarations 
@@ -60,7 +59,6 @@
       REAL,    INTENT(IN)  :: Vrated_MV, SCRmax
 
 ! Electrical Node Indices
-      INTEGER  NT_3(3), NT_6(3)
 
 ! Control Signals
       INTEGER  BRK, Enable, APC, RPC, VRT, GTB
@@ -72,16 +70,12 @@
 
 ! Internal Variables
       INTEGER  IVD1_1, IVD1_2, IVD1_3, IVD1_4
-      REAL     Hma_n_1, Hmb_n_1, Hmc_n_1, Hka_n_1
-      REAL     Hkb_n_1, Hkc_n_1, Hma_n, Hmb_n
-      REAL     Hmc_n, Hka_n, Hkb_n, Hkc_n, Yc
-      REAL     Ycm
 
 ! Indexing variables
       INTEGER ICALL_NO                            ! Module call num
       INTEGER ISTOI, ISTOF, IT_0                  ! Storage Indices
       INTEGER IPGB                                ! Control/Monitoring
-      INTEGER SS, INODE, IBRCH, IXFMR             ! SS/Node/Branch/Xfmr
+      INTEGER SS, INODE, IBRCH                    ! SS/Node/Branch/Xfmr
 
 
 !---------------------------------------
@@ -115,11 +109,9 @@
       IPGB      = NPGB
       NPGB      = NPGB + 10
       INODE     = NNODE + 2
-      NNODE     = NNODE + 27
+      NNODE     = NNODE + 14
       IBRCH     = NBRCH(SS)
-      NBRCH(SS) = NBRCH(SS) + 55
-      IXFMR     = NXFMR
-      NXFMR     = NXFMR + 7
+      NBRCH(SS) = NBRCH(SS) + 12
       NCSCS     = NCSCS + 0
       NCSCR     = NCSCR + 0
 
@@ -157,12 +149,6 @@
 !---------------------------------------
 
 
-! Array (1:3) quantities...
-      DO IT_0 = 1,3
-         NT_3(IT_0) = NODE(INODE + 9 + IT_0)
-         NT_6(IT_0) = NODE(INODE + 16 + IT_0)
-      END DO
-
 !---------------------------------------
 ! Configuration of Models 
 !---------------------------------------
@@ -178,130 +164,49 @@
 !---------------------------------------
 
 
-! 80:[LLTX_SCALER_pu]  
-!
-!
-!
-
-      IF(TIMEZERO) THEN
-        STORF(NSTORF)=DELT/(0.001*(Vrated_MV*Vrated_MV/Sbase1)/(TWO_PI*F&
-     &nom))
-      ENDIF
-      Yc  = STORF(NSTORF)
-      Ycm = N*Yc
-
-      Hka_n_1 =  STORF(NSTORF+1)
-      Hkb_n_1 =  STORF(NSTORF+2)
-      Hkc_n_1 =  STORF(NSTORF+3)
-      !
-      Hma_n_1 =  STORF(NSTORF+4)
-      Hmb_n_1 =  STORF(NSTORF+5)
-      Hmc_n_1 =  STORF(NSTORF+6)
-      !
-      ! History current calclulation is done for one loss loss line segment
-      Hma_n = 2*VDC(NT_6(1),SS)*Yc - Hka_n_1
-      Hmb_n = 2*VDC(NT_6(2),SS)*Yc - Hkb_n_1
-      Hmc_n = 2*VDC(NT_6(3),SS)*Yc - Hkc_n_1
-      !
-      Hka_n = 2*VDC(NT_3(1),SS)*Yc - Hma_n_1
-      Hkb_n = 2*VDC(NT_3(2),SS)*Yc - Hmb_n_1
-      Hkc_n = 2*VDC(NT_3(3),SS)*Yc - Hmc_n_1
-      ! History current is saved for the next time step
-      STORF(NSTORF+1)= Hka_n
-      STORF(NSTORF+2)= Hkb_n
-      STORF(NSTORF+3)= Hkc_n
-      !
-      STORF(NSTORF+4)= Hma_n
-      STORF(NSTORF+5)= Hmb_n
-      STORF(NSTORF+6)= Hmc_n
-
-! Ensure main program records CCIN current injections at these nodes
-      IF ( TIMEZERO ) THEN
-         ENABCCIN(NT_6(1), SS) = .TRUE.
-         ENABCCIN(NT_6(2), SS) = .TRUE.
-         ENABCCIN(NT_6(3), SS) = .TRUE.
-!
-         ENABCCIN(NT_3(1), SS) = .TRUE.
-         ENABCCIN(NT_3(2), SS) = .TRUE.
-         ENABCCIN(NT_3(3), SS) = .TRUE.
-      ENDIF
-
-! If 'SCL' number of parallel loss less lines are assumed. To save computation time only one unit (e.g. wind turbine) is simulated at k th side.
-!If side m has 'SCL' number of parallel lossless lines connected together. Total impedance is Zc/SCL and total current injection is Hm*SCAL
-      CCIN(NT_6(1),SS) = CCIN(NT_6(1),SS) + Hka_n
-      CCIN(NT_6(2),SS) = CCIN(NT_6(2),SS) + Hkb_n
-      CCIN(NT_6(3),SS) = CCIN(NT_6(3),SS) + Hkc_n
-!
-      GGIN(NT_6(1),SS) = GGIN(NT_6(1),SS) + Yc
-      GGIN(NT_6(2),SS) = GGIN(NT_6(2),SS) + Yc
-      GGIN(NT_6(3),SS) = GGIN(NT_6(3),SS) + Yc
-!
-!m Side current injection Scaled up by SCL
-      CCIN(NT_3(1),SS) = CCIN(NT_3(1),SS) + N*Hma_n
-      CCIN(NT_3(2),SS) = CCIN(NT_3(2),SS) + N*Hmb_n
-      CCIN(NT_3(3),SS) = CCIN(NT_3(3),SS) + N*Hmc_n
-!
-!m Side Condutance Scaled down by SCL
-      GGIN(NT_3(1),SS) = GGIN(NT_3(1),SS) + Ycm
-      GGIN(NT_3(2),SS) = GGIN(NT_3(2),SS) + Ycm
-      GGIN(NT_3(3),SS) = GGIN(NT_3(3),SS) + Ycm
-
-      NSTORF = NSTORF + 7
-
-! 90:[xfmr-3p2w] 3 Phase 2 Winding Transformer 
-!  TRANSFORMER SATURATION SUBROUTINE
-      IVD1_1 = NEXC
-      CALL TSAT2_EXE((IXFMR + 2),(IXFMR + 3),(IXFMR + 4), (IBRCH+10), (I&
-     &BRCH+11), (IBRCH+12), (IBRCH+13), (IBRCH+14), (IBRCH+15),0,0,0,0,0&
-     &,0,SS,0,1.0,0)
-
-! 270:[PPC] Power Plant Controller 
+! 240:[PPC] Power Plant Controller 
       CALL PPCDyn(Pref_pu, PFref, Qref_pu, Vref_pu, Qpcc_pu, Vpcc_pu, Pp&
      &cc_pu, Pcmd_pu, Qcmd_pu, BRK, Enable, Fpcc_pu, DBlk, APC, RPC, VRT&
      &, GTB, VBRKin_pu, VBRKout_pu, Vinrms_pu, Voutrms_pu, Pblst_pu, 1.0&
      &, 0.0, 0.6, -0.6, 1.2, 0.8)
 
 
-! 280:[Battery]  
+! 250:[Battery]  
       CALL BatteryDyn(Pcmd_pu, Qcmd_pu, Enable, VRT, APC, RPC, Fnom, Sba&
      &se1, Vrated_LV, Vdc_nom, L_GSC_pu, R_GSC_pu, C_GSC_pu, Rc_GSC_pu, &
      &Freq_PWM_GSC, Pblst_pu, SCRmax, Ppcc_pu, Qpcc_pu, Vpcc_pu, Fpcc_pu&
      &, Vpcc, Ipcc)
 
 
-! 290:[pgb] Output Channel 'Ipcc'
+! 260:[pgb] Output Channel 'Ipcc'
 
       DO IVD1_1 = 1, 3
          PGB(IPGB+1+IVD1_1-1) = Ipcc(IVD1_1)
       ENDDO
 
-! 300:[pgb] Output Channel 'Vpcc'
+! 270:[pgb] Output Channel 'Vpcc'
 
       DO IVD1_1 = 1, 3
          PGB(IPGB+4+IVD1_1-1) = Vpcc(IVD1_1)
       ENDDO
 
-! 310:[pgb] Output Channel 'Fpcc_pu'
+! 280:[pgb] Output Channel 'Fpcc_pu'
 
       PGB(IPGB+7) = Fpcc_pu
 
-! 320:[pgb] Output Channel 'Vpcc_pu'
+! 290:[pgb] Output Channel 'Vpcc_pu'
 
       PGB(IPGB+8) = Vpcc_pu
 
-! 330:[pgb] Output Channel 'Qpcc_pu'
+! 300:[pgb] Output Channel 'Qpcc_pu'
 
       PGB(IPGB+9) = Qpcc_pu
 
-! 340:[pgb] Output Channel 'Ppcc_pu'
+! 310:[pgb] Output Channel 'Ppcc_pu'
 
       PGB(IPGB+10) = Ppcc_pu
 
-! 350:[Harmonic_Filter] Harmonic Filter 
-      CALL Harmonic_FilterDyn(Fnom, Sbase, Vrated_MV, 900.0, L_GSC_pu)
-
-
-! 380:[breaker3] 3 Phase Breaker 'BRK'
+! 320:[breaker3] 3 Phase Breaker 'BRK'
       IVD1_4 = NSTORI
       NSTORI = NSTORI + 3
 ! Three Phase Breaker
@@ -329,20 +234,20 @@
       STORI(IVD1_4+1) = 2*E_BtoI(OPENBR( (IBRCH+2),SS))
       STORI(IVD1_4+2) = 2*E_BtoI(OPENBR( (IBRCH+3),SS))
 
-! 390:[breaker3] 3 Phase Breaker 'GTB'
+! 330:[breaker3] 3 Phase Breaker 'GTB'
       IVD1_4 = NSTORI
       NSTORI = NSTORI + 3
 ! Three Phase Breaker
-      CALL EMTDC_BREAKER1(SS, (IBRCH+35),1.0e-06,1000000000.0,RTCF(NRTCF&
-     &),0,NINT(1.0-REAL(GTB)))
-      CALL EMTDC_BREAKER1(SS, (IBRCH+36),1.0e-06,1000000000.0,RTCF(NRTCF&
-     &),0,NINT(1.0-REAL(GTB)))
-      CALL EMTDC_BREAKER1(SS, (IBRCH+37),1.0e-06,1000000000.0,RTCF(NRTCF&
-     &),0,NINT(1.0-REAL(GTB)))
+      CALL EMTDC_BREAKER1(SS, (IBRCH+4),1.0e-06,1000000000.0,RTCF(NRTCF)&
+     &,0,NINT(1.0-REAL(GTB)))
+      CALL EMTDC_BREAKER1(SS, (IBRCH+5),1.0e-06,1000000000.0,RTCF(NRTCF)&
+     &,0,NINT(1.0-REAL(GTB)))
+      CALL EMTDC_BREAKER1(SS, (IBRCH+6),1.0e-06,1000000000.0,RTCF(NRTCF)&
+     &,0,NINT(1.0-REAL(GTB)))
 !
-      IVD1_1 = 2*E_BtoI(OPENBR( (IBRCH+35),SS))
-      IVD1_2 = 2*E_BtoI(OPENBR( (IBRCH+36),SS))
-      IVD1_3 = 2*E_BtoI(OPENBR( (IBRCH+37),SS))
+      IVD1_1 = 2*E_BtoI(OPENBR( (IBRCH+4),SS))
+      IVD1_2 = 2*E_BtoI(OPENBR( (IBRCH+5),SS))
+      IVD1_3 = 2*E_BtoI(OPENBR( (IBRCH+6),SS))
       NRTCF = NRTCF + 1
       IF (FIRSTSTEP .OR. (STORI(IVD1_4+0) .NE. IVD1_1)) THEN
          CALL PSCAD_AGI2(ICALL_NO,79289047,IVD1_1,"BOpen1")
@@ -353,16 +258,9 @@
       IF (FIRSTSTEP .OR. (STORI(IVD1_4+2) .NE. IVD1_3)) THEN
          CALL PSCAD_AGI2(ICALL_NO,79289047,IVD1_3,"BOpen3")
       ENDIF
-      STORI(IVD1_4+0) = 2*E_BtoI(OPENBR( (IBRCH+35),SS))
-      STORI(IVD1_4+1) = 2*E_BtoI(OPENBR( (IBRCH+36),SS))
-      STORI(IVD1_4+2) = 2*E_BtoI(OPENBR( (IBRCH+37),SS))
-
-! 400:[xfmr-3p2w] 3 Phase 2 Winding Transformer 
-!  TRANSFORMER SATURATION SUBROUTINE
-      IVD1_1 = NEXC
-      CALL TSAT2_EXE((IXFMR + 5),(IXFMR + 6),(IXFMR + 7), (IBRCH+22), (I&
-     &BRCH+23), (IBRCH+24), (IBRCH+25), (IBRCH+26), (IBRCH+27),0,0,0,0,0&
-     &,0,SS,0,1.0,0)
+      STORI(IVD1_4+0) = 2*E_BtoI(OPENBR( (IBRCH+4),SS))
+      STORI(IVD1_4+1) = 2*E_BtoI(OPENBR( (IBRCH+5),SS))
+      STORI(IVD1_4+2) = 2*E_BtoI(OPENBR( (IBRCH+6),SS))
 
 !---------------------------------------
 ! Feedbacks and transfers to storage 
@@ -456,7 +354,6 @@
 !     SUBR    DGTL_RMS3     ! '3 Phase Digital RMS Meter'
 !     SUBR    PPCOut        ! Power Plant Controller
 !     SUBR    BatteryOut    ! 
-!     SUBR    Harmonic_FilterOut  ! Harmonic Filter
       REAL    VBRANCH       ! 
 
 !---------------------------------------
@@ -465,7 +362,7 @@
 
 
 ! Electrical Node Indices
-      INTEGER  NT_3(3), NT_4(3)
+      INTEGER  NT_1(3), NT_2(3)
 
 ! Control Signals
       REAL     VBRKin_pu(3), VBRKout_pu(3)
@@ -478,7 +375,7 @@
 ! Indexing variables
       INTEGER ICALL_NO                            ! Module call num
       INTEGER ISTOL, ISTOI, ISTOF, ISTOC, IT_0    ! Storage Indices
-      INTEGER SS, INODE, IBRCH, IXFMR             ! SS/Node/Branch/Xfmr
+      INTEGER SS, INODE, IBRCH                    ! SS/Node/Branch/Xfmr
 
 
 !---------------------------------------
@@ -507,11 +404,9 @@
 
       NPGB      = NPGB + 10
       INODE     = NNODE + 2
-      NNODE     = NNODE + 27
+      NNODE     = NNODE + 14
       IBRCH     = NBRCH(SS)
-      NBRCH(SS) = NBRCH(SS) + 55
-      IXFMR     = NXFMR
-      NXFMR     = NXFMR + 7
+      NBRCH(SS) = NBRCH(SS) + 12
       NCSCS     = NCSCS + 0
       NCSCR     = NCSCR + 0
 
@@ -536,8 +431,8 @@
 
 ! Array (1:3) quantities...
       DO IT_0 = 1,3
-         NT_3(IT_0) = NODE(INODE + 9 + IT_0)
-         NT_4(IT_0) = NODE(INODE + 12 + IT_0)
+         NT_1(IT_0) = NODE(INODE + 3 + IT_0)
+         NT_2(IT_0) = NODE(INODE + 6 + IT_0)
       END DO
 
 !---------------------------------------
@@ -555,49 +450,45 @@
 !---------------------------------------
 
 
-! 250:[multimeter] Multimeter 
+! 220:[multimeter] Multimeter 
       IVD1_1 = NRTCF
       NRTCF  = NRTCF + 5
-      VBRKout_pu(1) = EMTDC_VVDC(SS, NT_4(1), 0)
-      VBRKout_pu(2) = EMTDC_VVDC(SS, NT_4(2), 0)
-      VBRKout_pu(3) = EMTDC_VVDC(SS, NT_4(3), 0)
-      CALL DGTL_RMS3(256,SS,NT_4(1),NT_4(2),NT_4(3),RTCF(IVD1_1+3),1.0,0&
+      VBRKout_pu(1) = EMTDC_VVDC(SS, NT_2(1), 0)
+      VBRKout_pu(2) = EMTDC_VVDC(SS, NT_2(2), 0)
+      VBRKout_pu(3) = EMTDC_VVDC(SS, NT_2(3), 0)
+      CALL DGTL_RMS3(256,SS,NT_2(1),NT_2(2),NT_2(3),RTCF(IVD1_1+3),1.0,0&
      &.0,RVD1_1)
       RVD1_1 = RTCF(IVD1_1+1)*RVD1_1
       Voutrms_pu = RVD1_1
 
-! 260:[multimeter] Multimeter 
+! 230:[multimeter] Multimeter 
       IVD1_1 = NRTCF
       NRTCF  = NRTCF + 5
-      VBRKin_pu(1) = EMTDC_VVDC(SS, NT_3(1), 0)
-      VBRKin_pu(2) = EMTDC_VVDC(SS, NT_3(2), 0)
-      VBRKin_pu(3) = EMTDC_VVDC(SS, NT_3(3), 0)
-      CALL DGTL_RMS3(256,SS,NT_3(1),NT_3(2),NT_3(3),RTCF(IVD1_1+3),1.0,0&
+      VBRKin_pu(1) = EMTDC_VVDC(SS, NT_1(1), 0)
+      VBRKin_pu(2) = EMTDC_VVDC(SS, NT_1(2), 0)
+      VBRKin_pu(3) = EMTDC_VVDC(SS, NT_1(3), 0)
+      CALL DGTL_RMS3(256,SS,NT_1(1),NT_1(2),NT_1(3),RTCF(IVD1_1+3),1.0,0&
      &.0,RVD1_1)
       RVD1_1 = RTCF(IVD1_1+1)*RVD1_1
       Vinrms_pu = RVD1_1
 
-! 270:[PPC] Power Plant Controller 
+! 240:[PPC] Power Plant Controller 
       CALL PPCOut()
 
 
-! 280:[Battery]  
+! 250:[Battery]  
       CALL BatteryOut()
 
 
-! 350:[Harmonic_Filter] Harmonic Filter 
-      CALL Harmonic_FilterOut()
-
-
-! 380:[breaker3] 3 Phase Breaker 'BRK'
+! 320:[breaker3] 3 Phase Breaker 'BRK'
 ! Three Phase Breaker Currents
       CALL BRK_POWER(SS, (IBRCH+1), (IBRCH+2), (IBRCH+3),0,0,0,IVD1_1,0.&
      &02,RVD1_1,RVD1_2)
 
-! 390:[breaker3] 3 Phase Breaker 'GTB'
+! 330:[breaker3] 3 Phase Breaker 'GTB'
 ! Three Phase Breaker Currents
-      CALL BRK_POWER(SS, (IBRCH+35), (IBRCH+36), (IBRCH+37),0,0,0,IVD1_1&
-     &,0.02,RVD1_1,RVD1_2)
+      CALL BRK_POWER(SS, (IBRCH+4), (IBRCH+5), (IBRCH+6),0,0,0,IVD1_1,0.&
+     &02,RVD1_1,RVD1_2)
 
 !---------------------------------------
 ! Feedbacks and transfers to storage 
@@ -647,7 +538,6 @@
 
 !     SUBR    PPCDyn_Begin  ! Power Plant Controller
 !     SUBR    BatteryDyn_Begin  ! 
-!     SUBR    Harmonic_FilterDyn_Begin  ! Harmonic Filter
 
 !---------------------------------------
 ! Variable Declarations 
@@ -669,14 +559,11 @@
 ! Control Signals
 
 ! Internal Variables
-      INTEGER  IVD1_1, IVD1_2, IVD1_3, IVD1_4
-      REAL     RVD1_1, RVD1_2, RVD1_3, RVD1_4
-      REAL     RVD1_5, RVD1_6
 
 ! Indexing variables
       INTEGER ICALL_NO                            ! Module call num
       INTEGER IT_0                                ! Storage Indices
-      INTEGER SS, INODE, IBRCH, IXFMR             ! SS/Node/Branch/Xfmr
+      INTEGER SS, INODE, IBRCH                    ! SS/Node/Branch/Xfmr
 
 
 !---------------------------------------
@@ -696,11 +583,9 @@
 ! Increment global storage indices
 
       INODE     = NNODE + 2
-      NNODE     = NNODE + 27
+      NNODE     = NNODE + 14
       IBRCH     = NBRCH(SS)
-      NBRCH(SS) = NBRCH(SS) + 55
-      IXFMR     = NXFMR
-      NXFMR     = NXFMR + 7
+      NBRCH(SS) = NBRCH(SS) + 12
       NCSCS     = NCSCS + 0
       NCSCR     = NCSCR + 0
 
@@ -714,135 +599,36 @@
 !---------------------------------------
 
 
-! 50:[newpi] Coupled Pi Section Transmission Line 'Line1'
-      CALL COMPONENT_ID(ICALL_NO,1918798359)
-      CALL PI3_SECTION_CFG(1,1,0, 0.0,0.0,Fnom,100.0,2.0e-05,4.0e-05,300&
-     &.0,5.0e-05,0.001,500.0,RVD1_1,RVD1_2,RVD1_3,RVD1_4,RVD1_5,RVD1_6,I&
-     &VD1_1,IVD1_2,IVD1_3,IVD1_4)
-      CALL E_BRANCH_CFG( (IBRCH+38),SS,0,0,IVD1_3,0.0,0.0,RVD1_6)
-      CALL E_BRANCH_CFG( (IBRCH+39),SS,0,0,IVD1_3,0.0,0.0,RVD1_6)
-      CALL E_BRANCH_CFG( (IBRCH+40),SS,0,0,IVD1_3,0.0,0.0,RVD1_6)
-      CALL E_BRANCH_CFG( (IBRCH+41),SS,0,0,IVD1_3,0.0,0.0,RVD1_6)
-      CALL E_BRANCH_CFG( (IBRCH+42),SS,0,0,IVD1_3,0.0,0.0,RVD1_6)
-      CALL E_BRANCH_CFG( (IBRCH+43),SS,0,0,IVD1_3,0.0,0.0,RVD1_6)
-      CALL E_BRANCH_CFG( (IBRCH+44),SS,0,0,IVD1_4,0.0,0.0,RVD1_3)
-      CALL E_BRANCH_CFG( (IBRCH+45),SS,0,0,IVD1_4,0.0,0.0,RVD1_3)
-      CALL E_BRANCH_CFG( (IBRCH+46),SS,0,0,IVD1_4,0.0,0.0,RVD1_3)
-      CALL E_BRANCH_CFG( (IBRCH+47),SS,0,0,IVD1_4,0.0,0.0,RVD1_3)
-      CALL E_BRANCH_CFG( (IBRCH+48),SS,0,0,IVD1_4,0.0,0.0,RVD1_3)
-      CALL E_BRANCH_CFG( (IBRCH+34),SS,0,0,IVD1_4,0.0,0.0,RVD1_3)
-      CALL COUPLED_PI3_TF_CFG((IXFMR + 1),2,RVD1_1,RVD1_2,RVD1_4,RVD1_5)
-
-! 80:[LLTX_SCALER_pu]  
-
-! 90:[xfmr-3p2w] 3 Phase 2 Winding Transformer 
-      CALL COMPONENT_ID(ICALL_NO,1669765560)
-      RVD1_1 = ONE_3RD*Sbase1
-      RVD1_2 = Vrated_MV
-      RVD1_3 = Vrated_LV*SQRT_1BY3
-      CALL E_TF2W_CFG((IXFMR + 2),1,RVD1_1,Fnom,0.05,0.006,RVD1_2,RVD1_3&
-     &,0.4)
-      CALL E_TF2W_CFG((IXFMR + 3),1,RVD1_1,Fnom,0.05,0.006,RVD1_2,RVD1_3&
-     &,0.4)
-      CALL E_TF2W_CFG((IXFMR + 4),1,RVD1_1,Fnom,0.05,0.006,RVD1_2,RVD1_3&
-     &,0.4)
-      IF (0.004 .LT. 1.0E-6) THEN
-        RVD1_5 = 0.0
-        RVD1_6 = 0.0
-        IVD1_1 = 0
-      ELSE
-        RVD1_6 = 0.004
-        RVD1_4 = 6.0/(Sbase1*RVD1_6)
-        RVD1_5 = RVD1_4*RVD1_2*RVD1_2
-        RVD1_6 = RVD1_4*RVD1_3*RVD1_3
-        IVD1_1 = 1
-      ENDIF
-      CALL E_BRANCH_CFG( (IBRCH+4),SS,IVD1_1,0,0,RVD1_5,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+5),SS,IVD1_1,0,0,RVD1_5,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+6),SS,IVD1_1,0,0,RVD1_5,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+7),SS,IVD1_1,0,0,RVD1_6,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+8),SS,IVD1_1,0,0,RVD1_6,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+9),SS,IVD1_1,0,0,RVD1_6,0.0,0.0)
-      CALL TSAT2_CFG(2, (IBRCH+10), (IBRCH+11), (IBRCH+12), (IBRCH+13), &
-     &(IBRCH+14), (IBRCH+15),0,0,0,0,0,0,SS,RVD1_1,0.2,1.17,Fnom,0.0,0.4&
-     &,0.0,0.05,0.0,0.0,0.0,0.0,0.0,RVD1_2,RVD1_3,0.0,0.0)
-
-! 270:[PPC] Power Plant Controller 
+! 240:[PPC] Power Plant Controller 
       CALL PPCDyn_Begin(1.0, 0.0, 0.6, -0.6, 1.2, 0.8)
 
 
-! 280:[Battery]  
+! 250:[Battery]  
       CALL BatteryDyn_Begin(Fnom, Sbase1, Vrated_LV, Vdc_nom, L_GSC_pu, &
      &R_GSC_pu, C_GSC_pu, Freq_PWM_GSC)
 
 
-! 290:[pgb] Output Channel 'Ipcc'
+! 260:[pgb] Output Channel 'Ipcc'
 
-! 300:[pgb] Output Channel 'Vpcc'
+! 270:[pgb] Output Channel 'Vpcc'
 
-! 310:[pgb] Output Channel 'Fpcc_pu'
+! 280:[pgb] Output Channel 'Fpcc_pu'
 
-! 320:[pgb] Output Channel 'Vpcc_pu'
+! 290:[pgb] Output Channel 'Vpcc_pu'
 
-! 330:[pgb] Output Channel 'Qpcc_pu'
+! 300:[pgb] Output Channel 'Qpcc_pu'
 
-! 340:[pgb] Output Channel 'Ppcc_pu'
+! 310:[pgb] Output Channel 'Ppcc_pu'
 
-! 350:[Harmonic_Filter] Harmonic Filter 
-      CALL Harmonic_FilterDyn_Begin(Fnom, Sbase, Vrated_MV, 900.0)
-
-
-! 360:[resistive_load] Three phase resistive load 
-      CALL COMPONENT_ID(ICALL_NO,1890291113)
-      CALL RESLOAD_CFG(SS, (IBRCH+31), (IBRCH+32), (IBRCH+33),0,Ploc,Vra&
-     &ted_MV)
-
-! 370:[reactive_load] Three phase inductive load 
-      CALL COMPONENT_ID(ICALL_NO,293825461)
-      CALL INDLOAD_CFG(SS, (IBRCH+28), (IBRCH+29), (IBRCH+30),0,Qloc,Vra&
-     &ted_MV,Fnom)
-
-! 380:[breaker3] 3 Phase Breaker 'BRK'
+! 320:[breaker3] 3 Phase Breaker 'BRK'
       CALL COMPONENT_ID(ICALL_NO,539755099)
       RTCF(NRTCF) = ABS(0.0)
       NRTCF = NRTCF + 1
 
-! 390:[breaker3] 3 Phase Breaker 'GTB'
+! 330:[breaker3] 3 Phase Breaker 'GTB'
       CALL COMPONENT_ID(ICALL_NO,79289047)
       RTCF(NRTCF) = ABS(0.0)
       NRTCF = NRTCF + 1
-
-! 400:[xfmr-3p2w] 3 Phase 2 Winding Transformer 
-      CALL COMPONENT_ID(ICALL_NO,574837668)
-      RVD1_1 = ONE_3RD*Sbase
-      RVD1_2 = Vrated_HV*SQRT_1BY3
-      RVD1_3 = Vrated_MV
-      CALL E_TF2W_CFG((IXFMR + 5),1,RVD1_1,Fnom,0.1,0.001,RVD1_2,RVD1_3,&
-     &2.0)
-      CALL E_TF2W_CFG((IXFMR + 6),1,RVD1_1,Fnom,0.1,0.001,RVD1_2,RVD1_3,&
-     &2.0)
-      CALL E_TF2W_CFG((IXFMR + 7),1,RVD1_1,Fnom,0.1,0.001,RVD1_2,RVD1_3,&
-     &2.0)
-      IF (0.001 .LT. 1.0E-6) THEN
-        RVD1_5 = 0.0
-        RVD1_6 = 0.0
-        IVD1_1 = 0
-      ELSE
-        RVD1_6 = 0.001
-        RVD1_4 = 6.0/(Sbase*RVD1_6)
-        RVD1_5 = RVD1_4*RVD1_2*RVD1_2
-        RVD1_6 = RVD1_4*RVD1_3*RVD1_3
-        IVD1_1 = 1
-      ENDIF
-      CALL E_BRANCH_CFG( (IBRCH+16),SS,IVD1_1,0,0,RVD1_5,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+17),SS,IVD1_1,0,0,RVD1_5,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+18),SS,IVD1_1,0,0,RVD1_5,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+19),SS,IVD1_1,0,0,RVD1_6,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+20),SS,IVD1_1,0,0,RVD1_6,0.0,0.0)
-      CALL E_BRANCH_CFG( (IBRCH+21),SS,IVD1_1,0,0,RVD1_6,0.0,0.0)
-      CALL TSAT2_CFG(2, (IBRCH+22), (IBRCH+23), (IBRCH+24), (IBRCH+25), &
-     &(IBRCH+26), (IBRCH+27),0,0,0,0,0,0,SS,RVD1_1,0.2,1.17,Fnom,0.0,2.0&
-     &,0.0,0.1,0.0,0.0,0.0,0.0,0.0,RVD1_2,RVD1_3,0.0,0.0)
 
       RETURN
       END
@@ -873,7 +659,6 @@
 
 !     SUBR    PPCOut_Begin  ! Power Plant Controller
 !     SUBR    BatteryOut_Begin  ! 
-!     SUBR    Harmonic_FilterOut_Begin  ! Harmonic Filter
 
 !---------------------------------------
 ! Variable Declarations 
@@ -891,7 +676,7 @@
       REAL,    INTENT(IN)  :: Vrated_MV
 
 ! Electrical Node Indices
-      INTEGER  NT_3(3), NT_4(3)
+      INTEGER  NT_1(3), NT_2(3)
 
 ! Control Signals
 
@@ -901,7 +686,7 @@
 ! Indexing variables
       INTEGER ICALL_NO                            ! Module call num
       INTEGER IT_0                                ! Storage Indices
-      INTEGER SS, INODE, IBRCH, IXFMR             ! SS/Node/Branch/Xfmr
+      INTEGER SS, INODE, IBRCH                    ! SS/Node/Branch/Xfmr
 
 
 !---------------------------------------
@@ -921,11 +706,9 @@
 ! Increment global storage indices
 
       INODE     = NNODE + 2
-      NNODE     = NNODE + 27
+      NNODE     = NNODE + 14
       IBRCH     = NBRCH(SS)
-      NBRCH(SS) = NBRCH(SS) + 55
-      IXFMR     = NXFMR
-      NXFMR     = NXFMR + 7
+      NBRCH(SS) = NBRCH(SS) + 12
       NCSCS     = NCSCS + 0
       NCSCR     = NCSCR + 0
 
@@ -936,8 +719,8 @@
 
 ! Array (1:3) quantities...
       DO IT_0 = 1,3
-         NT_3(IT_0) = NODE(INODE + 9 + IT_0)
-         NT_4(IT_0) = NODE(INODE + 12 + IT_0)
+         NT_1(IT_0) = NODE(INODE + 3 + IT_0)
+         NT_2(IT_0) = NODE(INODE + 6 + IT_0)
       END DO
 
 !---------------------------------------
@@ -945,7 +728,7 @@
 !---------------------------------------
 
 
-! 250:[multimeter] Multimeter 
+! 220:[multimeter] Multimeter 
       IVD1_1 = NRTCF
       NRTCF  = NRTCF + 5
       IF (ABS(Vrated_MV) .GT. 1.0E-20) THEN
@@ -955,7 +738,7 @@
       ENDIF
       RTCF(IVD1_1+3) = Fnom
 
-! 260:[multimeter] Multimeter 
+! 230:[multimeter] Multimeter 
       IVD1_1 = NRTCF
       NRTCF  = NRTCF + 5
       IF (ABS(Vrated_MV) .GT. 1.0E-20) THEN
@@ -965,17 +748,13 @@
       ENDIF
       RTCF(IVD1_1+3) = Fnom
 
-! 270:[PPC] Power Plant Controller 
+! 240:[PPC] Power Plant Controller 
       CALL PPCOut_Begin(1.0, 0.0, 0.6, -0.6, 1.2, 0.8)
 
 
-! 280:[Battery]  
+! 250:[Battery]  
       CALL BatteryOut_Begin(Fnom, Sbase1, Vrated_LV, Vdc_nom, L_GSC_pu, &
      &R_GSC_pu, C_GSC_pu, Freq_PWM_GSC)
-
-
-! 350:[Harmonic_Filter] Harmonic Filter 
-      CALL Harmonic_FilterOut_Begin(Fnom, Sbase, Vrated_MV, 900.0)
 
 
       RETURN

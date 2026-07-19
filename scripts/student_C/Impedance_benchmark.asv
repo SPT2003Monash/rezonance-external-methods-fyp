@@ -17,7 +17,7 @@ addpath(genpath(MatPower_path));
 
 GFMI_1 = Unified_GFMI;
 
-load("Parameters_E1.mat")
+load("Parameters.mat")
 
 
 
@@ -36,8 +36,8 @@ Voltage_mag = PowerFlow_results.bus(1,8);
 
 % Calculate space phasors
 Angle_rad = deg2rad(Angle);
-Vc_phasor = Voltage_mag * V_LL/sqrt(3) * exp(1j * Angle_rad); % line-to-neutral voltage. NEed to rotate it an angle. 
-Vg_phasor = V_LL/sqrt(3); %aligned. 
+Vc_phasor = Voltage_mag * V_LL/sqrt(3) * exp(1j * Angle_rad); % line-to-neutral voltage
+Vg_phasor = V_LL/sqrt(3);
 
 % Compute impedance values (assuming these parameters are constant)
 Zt = (rf2 + rg + 1j * 2*pi*50 * (lf2 + lg));
@@ -45,7 +45,7 @@ Z2 = rf2 + 1j * 2*pi*50 * lf2;
 
 % Calculate current and PCC voltage phasors
 I2_phasor = (Vc_phasor - Vg_phasor) / Zt;
-Vpcc_phasor = (Vc_phasor - I2_phasor * Z2);
+Vpcc_phasor = (Vc_phasor - I2_phasor * Z2) * sqrt(2);
 
 % Store operating point values
 delta0 = Angle_rad;    
@@ -104,7 +104,7 @@ Y_qq = sys_full(2, 4); % Q-axis Admittance (Delta i1_q / Delta Vg_Q)
 Y_dq = sys_full(1, 4); % Cross-coupling (Delta i1_d / Delta Vg_Q)
 Y_qd = sys_full(2, 3); % Cross-coupling (Delta i1_q / Delta Vg_D)
 %% Reading CSV data
-csvData = readtable('LCL_Simple_IBR.csv', 'NumHeaderLines', 1);
+csvData = readtable('.csv', 'NumHeaderLines', 1);
 % Extract frequencies and convert CSV magnitudes to dB
 csv_f   = csvData.Var1;
 csv_dd_db = 20*log10(abs(csvData.Var2));
