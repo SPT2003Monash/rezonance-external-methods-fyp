@@ -46,20 +46,19 @@ k_ii = 2*Zb;            % Integral gain of current controller
 beta_v = 0.5;                % Voltage feedforward gain factor
 
 %% Voltage Control Parameters (TO change and modify)
-wm = 2000;                   % Overriding default setting (rad/s)
 k_pv = 0.76/Zb;            % Proportional gain of voltage controller
 k_iv = 292/Zb;     % Integral gain of voltage controller
 beta_i = 0.837;                % Current feedforward gain factor
 
 %% Active Power Control (APC) - Droop + LPF (To change and modify)
-mp = 0.05*50*2*pi/S_base;
+mp = 0.5/S_base;
 wc_p = 200;               
 w_dev = 0; %Unsure if this is even needed in the state space model. 
 %% Reactive Power Control (RPC) - Droop + LPF (To change and modify) 
 % In amplitude-invariant dq transform, nominal Vd is the peak phase voltage.
 V_set = sqrt(2/3) * V_LL;    % Nominal dq-frame voltage (approx 563.38 V) 
 nq = 0.05*V_set/S_base; % Reactive power droop gain (Volts / VAr)
-wc_q = 200;                % Reactive power LPF cutoff
+wc_q = 100;                % Reactive power LPF cutoff
 
 %% Virtual Impedance (To change and modify) 
 % Setting virtual inductance to approx 10% of base impedance to ensure P/Q decoupling

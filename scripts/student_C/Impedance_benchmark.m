@@ -42,8 +42,7 @@ Vpcc_phasor = Vc_phasor - I2_phasor * Z2;
 
 % Angle extracted from PSCAD. Found 1.75 to be the output, subtract pi/2
 % due to cosine and sine swap? 
-delta0  = 1.752-pi/2;    
-
+delta0  = 1.752-pi/2; 
 % Transform Phasors to Inverter d-q Frame (Aligned with Vc)
 % To align frame with Vc, multiply by exp(-1j * Angle_rad) and sqrt(2) for peak
 Vc_dq0 = Vc_phasor * exp(-1j * delta0) * sqrt(2); 
@@ -108,7 +107,7 @@ num_values  = {Vc_d0, Vc_q0, beta_i, beta_v, cf, cs, delta0, ...
                i2_d0, i2_q0, k_ii, k_pi, k_iv, k_pv, ...
                lf1, lf2, lg, rd, rf1, rf2, rg, rs, w, wn, td, ...
                mp, wc_p, V_set, nq, wc_q, R_vir, X_vir, ...
-               Vpcc_D0, Vpcc_Q0, w_dev, ...
+               Vpcc_D0, Vpcc_Q0, w_dev,...
                i1_d0, i1_q0, Vc_d0, Vc_q0, i2_d0, i2_q0, Vcf_d0, Vcf_q0}; 
 
 % 3. Substitute values into the FULL Unified System Matrices
@@ -215,7 +214,51 @@ title('q-q Axis Admittance (Y_{qq})');
 xlim([1, 10000]);
 ylim([-60, 60])
 
+%% Individual validation. LCL. filter. 
+% 
+% Vi_d_op = Vc_d0 + rf1*i1_d0 - lf1*i1_q0*w;
+% Vi_q_op = Vc_q0 + rf1*i1_q0 + lf1*i1_d0*w;
+% % 1. Define your operating point variables
+% % (Replace these arbitrary numbers with your actual calculated operating points)
+% op_vars = {'Vi_d', 'Vi_q', 'i1_d', 'i1_q', 'Vcf_d', 'Vcf_q', 'Vc_d', 'Vc_q', 'i2_d', 'i2_q', 'Vpcc_d', 'Vpcc_q', 'w_dev', 'lf1', 'rf1', 'rd', 'cf', 'lf2', 'rf2', 'w'};
+% op_vals = [Vi_d_op,Vi_q_op,i1_d0,i1_q0,Vcf_d0,Vcf_q0,Vc_d0,Vc_q0,i2_d0,i2_q0,Vpcc_d0,Vpcc_q0,w_dev,lf1,rf1,rd,cf,lf2,rf2,w ]; % Your numeric values corresponding to the list above
+% 
+% % syms Vi_d Vi_q i1_d i1_q Vcf_d Vcf_q Vc_d Vc_q i2_d i2_q ig_d ig_q Vsypcc_d Vpcclf1_q w_dev %Variables
+% % syms lf1 rf1 rd cf lf2 rf2 w %Parameters 
+% % %Vectors
+% % x_LCL = [i1_d; i1_q; Vcf_d; Vcf_q ; i2_d; i2_q]; 
+% % e_LCL= [Vc_d; Vc_q]; 
+% % u_LCL = [Vi_d; Vi_q; Vpcc_d; Vpcc_q;w_dev]; 
+% % y_LCL = [i1_d; i1_q; Vc_d; Vc_q; i2_d; i2_q];
+% 
+% % 2. Substitute operating points to create numeric A, B, C, D matrices
+% A_num = double(subs(A_LCL, op_vars, op_vals));
+% B_num = double(subs(B_LCL, op_vars, op_vals));
+% C_num = double(subs(C_LCL, op_vars, op_vals));
+% D_num = double(subs(D_LCL, op_vars, op_vals));
+% 
+% % 3. Create the full Linear Time-Invariant (LTI) State-Space model
+% sys_LCL = ss(A_num, B_num, C_num, D_num);
+% 
+% % 4. Extract the Admittance Matrix Y(s)
+% % sys(outputs, inputs) -> sys([5, 6], [3, 4])
+% Y_sys = -sys_LCL(5:6, 3:4); 
+% 
+% % 5. Configure Bode Plot Options (ensuring log scale and Hz if preferred)
+% opts = bodeoptions('cstprefs');
+% opts.FreqUnits = 'Hz'; 
+% opts.MagUnits = 'dB';
+% opts.PhaseUnits = 'deg';
+% 
+% % 6. Plot
+% figure;
+% bode(Y_sys, opts);
+% grid on;
+% title('LCL Filter Admittance Y(s)');
+% 
 
+
+%%
 % %% --- Dynamic Substitution and Plotting Setup ---
 % % Define the values of w_dev you want to test
 % w_dev_test_values = [-1000, 10, 100, 10000]; % Modify this array to whatever values you need
