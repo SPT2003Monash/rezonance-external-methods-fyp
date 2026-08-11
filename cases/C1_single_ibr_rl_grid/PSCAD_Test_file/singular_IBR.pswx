@@ -1,0 +1,16 @@
+<workspace name="singular_IBR" version="5.0.1" crc="48076965">
+  <projects>
+    <project type="library" name="rezonance" filepath=".\pscad_module\rezonance.pslx" />
+    <project type="project" name="GFMBESS_PSCAD502_20250513" filepath=".\GFMBESS_PSCAD502_20250513.pscx" />
+    <project type="project" name="Droop_GFMI" filepath="..\4055\Week10_PSCAD\Droop_GFMI.pscx" />
+  </projects>
+  <simulations />
+  <pmr />
+  <messagegrid expanded="">
+    <column name="Icon" />
+    <column name="Id" />
+    <column name="Component" />
+    <column name="Namespace" />
+    <column name="Description" />
+  </messagegrid>
+</workspace>

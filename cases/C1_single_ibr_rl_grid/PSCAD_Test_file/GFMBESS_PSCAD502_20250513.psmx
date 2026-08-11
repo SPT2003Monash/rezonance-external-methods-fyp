@@ -1,0 +1,188 @@
+<Meta name="GFMBESS_PSCAD502_20250513">
+  <messagelist>
+    <message status="normal" label="build" groupid="400002" scope="GFMBESS_PSCAD502_20250513" id="747292285" classid="MessageObj"><![CDATA[Begin compiling with PSCAD Version 5.0.1]]></message>
+    <message status="normal" label="build" groupid="100006" id="1403966803" classid="CmpNavigator">
+      <User scope="GFMBESS_PSCAD502_20250513" name="Battery" status="normal" link="933306444" /><![CDATA[Compiling 'Battery'. Generating network and data files.]]></message>
+    <message status="normal" label="build" groupid="100006" id="1257375871" classid="CmpNavigator">
+      <User scope="GFMBESS_PSCAD502_20250513" name="GSC" status="normal" link="2040500142" /><![CDATA[Compiling 'GSC'. Generating network and data files.]]></message>
+    <message status="warning" label="build" groupid="206502" id="593920911" classid="CmpNavigator">
+      <User scope="GFMBESS_PSCAD502_20250513" name="master:datamerge" status="warning" link="468685291" /><![CDATA[Signal 'RT_10' type conversion may lose accuracy at connection 'A1:Dim1']]></message>
+    <message status="warning" label="build" groupid="206502" id="1592008878" classid="CmpNavigator">
+      <User scope="GFMBESS_PSCAD502_20250513" name="master:datamerge" status="warning" link="468685291" /><![CDATA[Signal 'RT_11' type conversion may lose accuracy at connection 'A2:Dim2']]></message>
+    <message status="normal" label="build" groupid="100006" id="523831478" classid="CmpNavigator">
+      <User scope="GFMBESS_PSCAD502_20250513" name="Primary_Controller" status="normal" link="1728921583" /><![CDATA[Compiling 'Primary_Controller'. Generating network and data files.]]></message>
+    <message status="normal" label="build" groupid="100006" id="1275664775" classid="CmpNavigator">
+      <User scope="GFMBESS_PSCAD502_20250513" name="Virtual_Impedance" status="normal" link="1455031194" /><![CDATA[Compiling 'Virtual_Impedance'. Generating network and data files.]]></message>
+    <message status="normal" label="build" groupid="100006" id="1523761543" classid="CmpNavigator">
+      <User scope="GFMBESS_PSCAD502_20250513" name="GSC_Voltage_Controller" status="normal" link="567202740" /><![CDATA[Compiling 'GSC_Voltage_Controller'. Generating network and data files.]]></message>
+    <message status="normal" label="build" groupid="100006" id="1474014896" classid="CmpNavigator">
+      <User scope="GFMBESS_PSCAD502_20250513" name="GSC_Current_Controller" status="normal" link="2042195303" /><![CDATA[Compiling 'GSC_Current_Controller'. Generating network and data files.]]></message>
+    <message status="normal" label="build" groupid="100006" id="1726004480" classid="CmpNavigator">
+      <User scope="GFMBESS_PSCAD502_20250513" name="Uref_Generator" status="normal" link="417759221" /><![CDATA[Compiling 'Uref_Generator'. Generating network and data files.]]></message>
+    <message status="normal" label="build" groupid="100006" link="869937471" id="869937471" classid="FileNavigator"><![CDATA[Generating 'C:\Users\erict\Downloads\PSCAD_Test_file\GFMBESS_PSCAD502_20250513.if18\GFMBESS_PSCAD502_20250513.map'.]]><file scope="GFMBESS_PSCAD502_20250513">C:\Users\erict\Downloads\PSCAD_Test_file\GFMBESS_PSCAD502_20250513.if18\GFMBESS_PSCAD502_20250513.map</file></message>
+    <message status="normal" label="build" groupid="100015" scope="GFMBESS_PSCAD502_20250513" id="593357301" classid="MessageObj"><![CDATA[The total number of live nodes: 45]]></message>
+    <message status="normal" label="build" groupid="0" link="1056570523" id="1056570523" classid="FileNavigator"><![CDATA[Coding .mak file: 'C:\Users\erict\Downloads\PSCAD_Test_file\GFMBESS_PSCAD502_20250513.if18\\GFMBESS_PSCAD502_20250513.mak']]><file scope="GFMBESS_PSCAD502_20250513">C:\Users\erict\Downloads\PSCAD_Test_file\GFMBESS_PSCAD502_20250513.if18\\GFMBESS_PSCAD502_20250513.mak</file></message>
+    <message status="normal" label="build" groupid="100001" scope="GFMBESS_PSCAD502_20250513" id="2087898949" classid="MessageObj"><![CDATA[Non-professional licenses are limited to a single, electrical subsystem. Subsystem splitting has been internally disabled for this simulation.]]></message>
+    <message status="normal" label="build" groupid="400000" scope="GFMBESS_PSCAD502_20250513" id="1488261592" classid="MessageObj"><![CDATA[Time for Compile: 22811ms  Make: 15ms]]></message>
+    <message status="normal" label="build" groupid="400000" scope="GFMBESS_PSCAD502_20250513" id="850593520" classid="MessageObj"><![CDATA[Solve Time = 31ms]]></message>
+    <message status="normal" label="build" groupid="100016" scope="GFMBESS_PSCAD502_20250513" id="637216002" classid="MessageObj"><![CDATA[Will execute (1): call C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\..\..\setvars-ifort.bat  intel64]]></message>
+    <message status="normal" label="build" groupid="100016" scope="GFMBESS_PSCAD502_20250513" id="954943871" classid="MessageObj"><![CDATA[Will execute (1): call "C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\..\..\setvars-ifort.bat"  intel64]]></message>
+    <message status="normal" label="build" groupid="100016" scope="GFMBESS_PSCAD502_20250513" id="532237770" classid="MessageObj"><![CDATA[Will execute (2): nmake -f GFMBESS_PSCAD502_20250513.mak]]></message>
+    <message status="normal" label="build" groupid="100016" scope="GFMBESS_PSCAD502_20250513" id="1450367994" classid="MessageObj"><![CDATA[Will execute (2): "C:\Users\erict\Downloads\PSCAD_Test_file\GFMBESS_PSCAD502_20250513.if18\GFMBESS_PSCAD502_20250513_mak.bat"]]></message>
+    <message status="normal" label="build" groupid="100005" scope="GFMBESS_PSCAD502_20250513" id="1517548450" classid="MessageObj"><![CDATA[Creating EMTDC executable...]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="209018712" classid="MessageObj"><![CDATA[C:\Users\erict\Downloads\PSCAD_Test_file\GFMBESS_PSCAD502_20250513.if18>call "C:\Program Files (x86)\Intel\oneAPI\compiler\2024.2\..\..\setvars-ifort.bat"  intel64 ]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="1006079014" classid="MessageObj"><![CDATA[:: initializing oneAPI environment...]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="1292246289" classid="MessageObj"><![CDATA[   Initializing Visual Studio command-line environment...]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="157106443" classid="MessageObj"><![CDATA[   Visual Studio version 17.14.5 environment configured.]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="1918695530" classid="MessageObj"><![CDATA[   "C:\Program Files\Microsoft Visual Studio\2022\Community\"]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="278034179" classid="MessageObj"><![CDATA[   Visual Studio command-line environment initialized for: 'x64']]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="216598312" classid="MessageObj"><![CDATA[:  advisor -- 2024.2]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="1676832095" classid="MessageObj"><![CDATA[:  compiler -- 2024.2]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="1096004074" classid="MessageObj"><![CDATA[:  debugger -- 2024.2]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="1466319965" classid="MessageObj"><![CDATA[:  dev-utilities -- 2024.2]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="405406898" classid="MessageObj"><![CDATA[:  dnnl -- 2024.2]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="800202859" classid="MessageObj"><![CDATA[:  dpcpp-ct -- 2024.2]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="1386493102" classid="MessageObj"><![CDATA[:  mkl -- 2024.2]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="859007897" classid="MessageObj"><![CDATA[:  ocloc -- 2024.2]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="1611141563" classid="MessageObj"><![CDATA[:  vtune -- 2024.2]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="601631498" classid="MessageObj"><![CDATA[:: oneAPI environment initialized ::]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="626110573" classid="MessageObj"><![CDATA[Microsoft (R) Program Maintenance Utility Version 14.44.35209.0]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="625568134" classid="MessageObj"><![CDATA[Copyright (C) Microsoft Corporation.  All rights reserved.]]></message>
+    <message status="normal" label="build" groupid="100004" scope="GFMBESS_PSCAD502_20250513" id="1117846179" classid="MessageObj"><![CDATA[Compiling 'Battery.f' into object code.]]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="1353013914" classid="MessageObj"><![CDATA[ifort: remark #10448: Intel(R) Fortran Compiler Classic (ifort) is now deprecated and will be discontinued late 2024. Intel recommends that customers transition now to using the LLVM-based Intel(R) Fortran Compiler (ifx) for continued Windows* and Linux* support, new language support, new language features, and optimizations. Use '/Qdiag-disable:10448' to disable this message.]]></message>
+    <message status="warning" label="build" groupid="200008" scope="GFMBESS_PSCAD502_20250513" id="299009927" classid="MessageObj"><![CDATA[ifort: command line warning #10434: option '/real_size' use with underscore is deprecated; use '/real-size' instead]]></message>
+    <message status="normal" label="build" groupid="100013" scope="GFMBESS_PSCAD502_20250513" id="1766117791" classid="MessageObj"><![CDATA[Linking objects and libraries into binary 'GFMBESS_PSCAD502_20250513.exe']]></message>
+    <message status="normal" label="build" groupid="0" scope="GFMBESS_PSCAD502_20250513" id="266313022" classid="MessageObj"><![CDATA[   Creating library GFMBESS_PSCAD502_20250513.lib and object GFMBESS_PSCAD502_20250513.exp]]></message>
+    <message status="normal" label="build" groupid="400003" scope="GFMBESS_PSCAD502_20250513" id="1371376269" classid="MessageObj"><![CDATA[Finished compiling with PSCAD Version 5.0.1]]></message>
+    <message status="error" label="runtime" groupid="300008" scope="GFMBESS_PSCAD502_20250513" id="450272627" classid="MessageObj"><![CDATA[Process has been terminated by user.]]></message>
+    <message status="warning" label="runtime" groupid="200009" scope="GFMBESS_PSCAD502_20250513" id="1685502820" classid="MessageObj"><![CDATA[Simulation ending on user request.]]></message>
+  </messagelist>
+  <ViewContext>
+    <Window defn="GFMBESS_PSCAD502_20250513:Main" call="0" />
+  </ViewContext>
+  <List classid="View">
+    <View name="Main" zoomscale="0.96" scrollx="0" scrolly="0" />
+    <View name="BESS" zoomscale="1" scrollx="0" scrolly="0" />
+    <View name="PPC" zoomscale="1.2" scrollx="0" scrolly="0" />
+    <View name="Battery" zoomscale="0.768" scrollx="0" scrolly="42" />
+    <View name="UC" zoomscale="1.5" scrollx="242" scrolly="0" />
+    <View name="GSC" zoomscale="1.2" scrollx="0" scrolly="35" />
+    <View name="Current_Limiter" zoomscale="1.5" scrollx="0" scrolly="270" />
+    <View name="GSC_Voltage_Controller" zoomscale="1.5" scrollx="0" scrolly="738" />
+    <View name="PI_AntiWindUp" zoomscale="1.5" scrollx="0" scrolly="225" />
+    <View name="GSC_Current_Controller" zoomscale="1.5" scrollx="0" scrolly="0" />
+    <View name="Uref_Generator" zoomscale="0.96" scrollx="0" scrolly="216" />
+    <View name="ConvBridge_IGBT" zoomscale="0.96" scrollx="0" scrolly="0" />
+    <View name="Calculations" zoomscale="1.2" scrollx="0" scrolly="144" />
+    <View name="Primary_Controller" zoomscale="0.96" scrollx="0" scrolly="0" />
+    <View name="Virtual_Impedance" zoomscale="1.5" scrollx="0" scrolly="0" />
+    <View name="Parameters_Filters" zoomscale="1.5" scrollx="160" scrolly="0" />
+    <View name="Measurement_Filter" zoomscale="1.5" scrollx="242" scrolly="0" />
+    <View name="RPC_Droop" zoomscale="1.5" scrollx="0" scrolly="0" />
+    <View name="APC_Droop" zoomscale="1.5" scrollx="0" scrolly="0" />
+    <View name="Parameters_Bases" zoomscale="1.5" scrollx="0" scrolly="0" />
+    <View name="APC_GCVSG" zoomscale="1.5" scrollx="0" scrolly="0" />
+    <View name="AVR" zoomscale="0.96" scrollx="0" scrolly="0" />
+    <View name="ABC_to_DQ0" zoomscale="1.2" scrollx="0" scrolly="0" />
+    <View name="Startup" zoomscale="1.2" scrollx="0" scrolly="0" />
+    <View name="RPC_PI" zoomscale="1.875" scrollx="0" scrolly="38" />
+    <View name="APC_VSG" zoomscale="0.96" scrollx="0" scrolly="0" />
+    <View name="PWM" zoomscale="0.96" scrollx="0" scrolly="125" />
+    <View name="DQ0_to_ABC" zoomscale="0.96" scrollx="0" scrolly="0" />
+  </List>
+  <Output device="EMTDC" version="2010" date="2026/08/11" time="15:05:02.000000">
+    <Domain name="Time" unit="s" mult="0.0" skew="0.0">
+      <Sample rate="16666.6666667" end="900333" />
+    </Domain>
+    <List classid="Analog">
+      <Analog name="Main(0):Ppoc" index="1" gindex="100663297" id="2134405544:0" label="" dim="1" unit="MW" min="-2.0" max="2.0" />
+      <Analog name="Main(0):Qpoc" index="2" gindex="100663298" id="1431495541:0" label="" dim="1" unit="MVAr" min="-2.0" max="2.0" />
+      <Analog name="Main(0):Vpoc" index="3" gindex="100663299" id="1876753753:0" label="" dim="3" unit="" min="-2.0" max="2.0" />
+      <Analog name="Main(0):Ipoc" index="6" gindex="100663302" id="1798457992:0" label="" dim="3" unit="kA" min="-2.0" max="2.0" />
+      <Analog name="Main(0):Vpoc_rms" index="9" gindex="100663305" id="926514054:0" label="" dim="1" unit="kV" min="-2.0" max="2.0" />
+      <Analog name="Main(0):Ipoc_rms" index="10" gindex="100663306" id="2004175521:0" label="" dim="1" unit="kA" min="-2.0" max="2.0" />
+      <Analog name="Main(0):GRIDT" index="11" gindex="100663307" id="63065755:0" label="" dim="1" unit="" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0):Ipcc" index="12" gindex="100663308" id="349252441:0" label="" dim="3" unit="kA" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0):Vpcc" index="15" gindex="100663311" id="192003675:0" label="" dim="3" unit="kV" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0):Fpcc_pu" index="18" gindex="100663314" id="1734665620:0" label="" dim="1" unit="Hz" min="0.0" max="1.0" />
+      <Analog name="Main(0)\BESS(0):Vpcc_pu" index="19" gindex="100663315" id="1352470015:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0):Qpcc_pu" index="20" gindex="100663316" id="1215029475:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0):Ppcc_pu" index="21" gindex="100663317" id="614647209:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):Pref_pu" index="22" gindex="100663318" id="1445672888:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):Vpcc_pu" index="23" gindex="100663319" id="1558661784:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):Vref_pu" index="24" gindex="100663320" id="1432939891:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):Qref_pu" index="25" gindex="100663321" id="827791394:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):Qmeas_pu" index="26" gindex="100663322" id="1224294947:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):fpcc_pu" index="27" gindex="100663323" id="690410559:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):Qcmd_pu_" index="28" gindex="100663324" id="66318513:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):Pblst_pu_" index="29" gindex="100663325" id="1265860379:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):Pmeas_pu" index="30" gindex="100663326" id="1004779196:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0):Pcmd_pu_" index="31" gindex="100663327" id="1344955716:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0)\Startup(0):dVBRK_pu" index="32" gindex="100663328" id="701537143:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0)\Startup(0):Pblst_pu_" index="33" gindex="100663329" id="442972163:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\PPC(0)\Startup(0):dAng" index="34" gindex="100663330" id="1237036430:0" label="" dim="1" unit="rad" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0):Ppcc_pu_" index="35" gindex="100663331" id="134877958:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0):Qpcc_pu_" index="36" gindex="100663332" id="899896463:0" label="" dim="1" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0):Vpcc_pu_" index="37" gindex="100663333" id="1784340519:0" label="" dim="1" unit="" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0):Igabc_pu" index="38" gindex="100663334" id="238623640:0" label="" dim="3" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0):Vgabc_pu" index="41" gindex="100663337" id="1702187895:0" label="" dim="3" unit="pu" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0):A" index="44" gindex="100663340" id="2093076289:0" label="" dim="1" unit="" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Qcmd_pu" index="45" gindex="100663341" id="1742242929:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Qpcc_pu" index="46" gindex="100663342" id="1136820328:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Theta" index="47" gindex="100663343" id="1902445404:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Vdqref_pu" index="48" gindex="100663344" id="1816294665:0" label="" dim="2" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Ppcc_pu" index="50" gindex="100663346" id="977717676:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Pref_pu" index="51" gindex="100663347" id="1059872257:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Vdq_ref_pu" index="52" gindex="100663348" id="890709573:0" label="" dim="2" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Igdq_pu" index="54" gindex="100663350" id="1784181009:0" label="" dim="2" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Vgdq_pu" index="56" gindex="100663352" id="699634235:0" label="" dim="2" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Freq_GFM" index="58" gindex="100663354" id="1992379569:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Vpcc_q" index="59" gindex="100663355" id="1323829791:0" label="" dim="1" unit="" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Sig_GSC_" index="60" gindex="100663356" id="724341152:0" label="" dim="3" unit="" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Vpcc_d" index="63" gindex="100663359" id="121505738:0" label="" dim="1" unit="" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):ATheta" index="64" gindex="100663360" id="984048578:0" label="" dim="1" unit="" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0):Theta" index="65" gindex="100663361" id="1070233791:0" label="" dim="1" unit="" min="-2.0" max="2.0" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Primary_Controller(0):Vqref_pu" index="66" gindex="100663362" id="112335515:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Primary_Controller(0):VRT" index="67" gindex="100663363" id="37398691:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Primary_Controller(0):f_pu_" index="68" gindex="100663364" id="1821689884:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Primary_Controller(0):wt_" index="69" gindex="100663365" id="1469031397:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Primary_Controller(0):Frz_q" index="70" gindex="100663366" id="1269894763:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Primary_Controller(0):Frz_d" index="71" gindex="100663367" id="1770543291:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Primary_Controller(0):Vdref_pu" index="72" gindex="100663368" id="525477057:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Virtual_Impedance(0):Vqrefpu" index="73" gindex="100663369" id="1932460398:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Virtual_Impedance(0):Iq_pu" index="74" gindex="100663370" id="548519060:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Virtual_Impedance(0):Id_pu" index="75" gindex="100663371" id="1232602586:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Virtual_Impedance(0):Vqref_pu" index="76" gindex="100663372" id="811390860:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Virtual_Impedance(0):Vdrefpu" index="77" gindex="100663373" id="1867930856:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Virtual_Impedance(0):Vdref_pu" index="78" gindex="100663374" id="1189951033:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):VRT" index="79" gindex="100663375" id="1035505387:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Frz_q" index="80" gindex="100663376" id="48385003:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Frz_d" index="81" gindex="100663377" id="234807254:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Iq_pu" index="82" gindex="100663378" id="302403687:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Iqref_pu" index="83" gindex="100663379" id="1388257119:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Vq_pu" index="84" gindex="100663380" id="86733141:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Id_pu" index="85" gindex="100663381" id="210064749:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Vqref_pu" index="86" gindex="100663382" id="1825605429:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Vd_pu" index="87" gindex="100663383" id="1651862624:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Idref_pu" index="88" gindex="100663384" id="384008194:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Voltage_Controller(0):Vdref_pu" index="89" gindex="100663385" id="100655471:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Frz_q" index="90" gindex="100663386" id="313995347:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Frz_d" index="91" gindex="100663387" id="371394350:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Iq_pu" index="92" gindex="100663388" id="27424403:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Vtqref_pu" index="93" gindex="100663389" id="1479594625:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Iqref_pu" index="94" gindex="100663390" id="730117871:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Id_pu" index="95" gindex="100663391" id="2046657394:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Vtdref_pu" index="96" gindex="100663392" id="1578579438:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Vq_pu" index="97" gindex="100663393" id="438118917:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Idref_pu" index="98" gindex="100663394" id="153622867:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\GSC_Current_Controller(0):Vd_pu" index="99" gindex="100663395" id="213695787:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Uref_Generator(0):VtqLim" index="100" gindex="100663396" id="1069566897:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Uref_Generator(0):VtdLim" index="101" gindex="100663397" id="577183723:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Uref_Generator(0):md_max" index="102" gindex="100663398" id="75943719:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Uref_Generator(0):mq_" index="103" gindex="100663399" id="429421630:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Uref_Generator(0):md_" index="104" gindex="100663400" id="588038015:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+      <Analog name="Main(0)\BESS(0)\Battery(0)\UC(0)\GSC(0)\Uref_Generator(0):mq_max" index="105" gindex="100663401" id="1269712782:0" label="" dim="1" unit="" min="-0.4" max="1.2" />
+    </List>
+    <List classid="Digital" />
+  </Output>
+</Meta>
