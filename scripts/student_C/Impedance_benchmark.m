@@ -134,7 +134,7 @@ Y_qq = sys_full(2, 4); % Output 2 (i2_Q) wrt Input 4 (Vpcc_Q)
 Y_dq = sys_full(1, 4); % Output 1 (i2_D) wrt Input 4 (Vpcc_Q)
 Y_qd = sys_full(2, 3); % Output 2 (i2_Q) wrt Input 3 (Vpcc_D)
 %% Reading CSV data
-csvData = readtable('AVM_Full.csv', 'NumHeaderLines', 1);
+csvData = readtable('PWM_Full_Delay.csv', 'NumHeaderLines', 1);
 % Extract frequencies and convert CSV magnitudes to dB
 csv_f   = csvData.Var1;
 csv_dd_db = 20*log10(abs(csvData.Var2));
