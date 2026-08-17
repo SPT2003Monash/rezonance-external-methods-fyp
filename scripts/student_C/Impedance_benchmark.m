@@ -42,7 +42,7 @@ Vpcc_phasor = Vc_phasor - I2_phasor * Z2;
 
 % Angle extracted from PSCAD. Found 1.75 to be the output, subtract pi/2
 % due to cosine and sine swap? 
-delta0  = 0; 
+delta0  = Angle_rad; 
 % Transform Phasors to Inverter d-q Frame (Aligned with Vc)
 % To align frame with Vc, multiply by exp(-1j * Angle_rad) and sqrt(2) for peak
 Vc_dq0 = Vc_phasor * exp(-1j * delta0) * sqrt(2); 
@@ -85,7 +85,7 @@ i1_q0  = imag(I1_dq0);
 Vcf_dq0 = Vcf_phasor * exp(-1j * delta0) * sqrt(2);
 Vcf_d0  = real(Vcf_dq0);
 Vcf_q0  = imag(Vcf_dq0);
-%%
+
 %operating point validation. Cross check these with PSCAD steady state to
 realpowerInverter = 3/2*(Vc_d0*i2_d0 + Vc_q0*i2_q0)
 reactiveInverter = 3/2*(Vc_q0*i2_d0-Vc_d0*i2_q0)
@@ -133,15 +133,16 @@ Y_dd = sys_full(1, 3); % Output 1 (i2_D) wrt Input 3 (Vpcc_D)
 Y_qq = sys_full(2, 4); % Output 2 (i2_Q) wrt Input 4 (Vpcc_Q)
 Y_dq = sys_full(1, 4); % Output 1 (i2_D) wrt Input 4 (Vpcc_Q)
 Y_qd = sys_full(2, 3); % Output 2 (i2_Q) wrt Input 3 (Vpcc_D)
-%% Reading CSV data
-csvData = readtable('PWM_Full_Delay.csv', 'NumHeaderLines', 1);
+%% Reading CSV Magnitude. 
+csvData = readtable('AVM_Full.csv', 'NumHeaderLines', 1);
 % Extract frequencies and convert CSV magnitudes to dB
 csv_f   = csvData.Var1;
 csv_dd_db = 20*log10(abs(csvData.Var2));
 csv_dq_db = 20*log10(abs(csvData.Var3));
 csv_qd_db = 20*log10(abs(csvData.Var4));
 csv_qq_db = 20*log10(abs(csvData.Var5));
-%% --- Plotting the Admittance Matrix (Magnitudes Only) ---
+
+% --- Plotting the Admittance Matrix (Magnitudes Only) ---
 frequencies_Hz = logspace(-3, 6, 100000); % Sweep from 1 Hz to 10000 Hz
 frequencies_rad = 2 * pi * frequencies_Hz;
 
@@ -162,7 +163,7 @@ figure('Color', 'w', 'Position', [100, 100, 1000, 700]);
 sgtitle('Analytical GFMI Admittance', 'Color', 'k', 'FontWeight', 'bold', 'FontSize', 16);
 
 
-%% --- TOP LEFT: Y_dd Magnitude ---
+% --- TOP LEFT: Y_dd Magnitude ---
 subplot(2,2,1);
 semilogx(frequencies_Hz, mag_dd_db, 'b', 'LineWidth', 1.5);
 hold on
@@ -175,7 +176,7 @@ title('d-d Axis Admittance (Y_{dd})');
 xlim([1, 10000]);
 ylim([-60, 60])
 
-%% --- TOP RIGHT: Y_dq Magnitude ---
+% --- TOP RIGHT: Y_dq Magnitude ---
 subplot(2,2,2);
 semilogx(frequencies_Hz, mag_dq_db, 'g', 'LineWidth', 1.5);
 hold on
@@ -187,7 +188,7 @@ xlabel('Frequency (Hz)');
 title('d-q Cross-Coupling Admittance (Y_{dq})');
 xlim([1, 10000]);
 ylim([-60, 60])
-%% --- BOTTOM LEFT: Y_qd Magnitude ---
+% --- BOTTOM LEFT: Y_qd Magnitude ---
 subplot(2,2,3);
 semilogx(frequencies_Hz, mag_qd_db, 'm', 'LineWidth', 1.5);
 hold on
@@ -199,7 +200,7 @@ xlabel('Frequency (Hz)');
 title('q-d Cross-Coupling Admittance (Y_{qd})');
 xlim([1, 10000]);
 ylim([-60, 60])
-%% --- BOTTOM RIGHT: Y_qq Magnitude ---
+% --- BOTTOM RIGHT: Y_qq Magnitude ---
 subplot(2,2,4);
 semilogx(frequencies_Hz, mag_qq_db, 'r', 'LineWidth', 1.5);
 hold on
@@ -212,46 +213,91 @@ title('q-q Axis Admittance (Y_{qq})');
 xlim([1, 10000]);
 ylim([-60, 60])
 
-%% Individual validation. LCL. filter. 
-% 
-% Vi_d_op = Vc_d0 + rf1*i1_d0 - lf1*i1_q0*w;
-% Vi_q_op = Vc_q0 + rf1*i1_q0 + lf1*i1_d0*w;
-% % 1. Define your operating point variables
-% % (Replace these arbitrary numbers with your actual calculated operating points)
-% op_vars = {'Vi_d', 'Vi_q', 'i1_d', 'i1_q', 'Vcf_d', 'Vcf_q', 'Vc_d', 'Vc_q', 'i2_d', 'i2_q', 'Vpcc_d', 'Vpcc_q', 'w_dev', 'lf1', 'rf1', 'rd', 'cf', 'lf2', 'rf2', 'w'};
-% op_vals = [Vi_d_op,Vi_q_op,i1_d0,i1_q0,Vcf_d0,Vcf_q0,Vc_d0,Vc_q0,i2_d0,i2_q0,Vpcc_d0,Vpcc_q0,w_dev,lf1,rf1,rd,cf,lf2,rf2,w ]; % Your numeric values corresponding to the list above
-% 
-% % syms Vi_d Vi_q i1_d i1_q Vcf_d Vcf_q Vc_d Vc_q i2_d i2_q ig_d ig_q Vsypcc_d Vpcclf1_q w_dev %Variables
-% % syms lf1 rf1 rd cf lf2 rf2 w %Parameters 
-% % %Vectors
-% % x_LCL = [i1_d; i1_q; Vcf_d; Vcf_q ; i2_d; i2_q]; 
-% % e_LCL= [Vc_d; Vc_q]; 
-% % u_LCL = [Vi_d; Vi_q; Vpcc_d; Vpcc_q;w_dev]; 
-% % y_LCL = [i1_d; i1_q; Vc_d; Vc_q; i2_d; i2_q];
-% 
-% % 2. Substitute operating points to create numeric A, B, C, D matrices
-% A_num = double(subs(A_LCL, op_vars, op_vals));
-% B_num = double(subs(B_LCL, op_vars, op_vals));
-% C_num = double(subs(C_LCL, op_vars, op_vals));
-% D_num = double(subs(D_LCL, op_vars, op_vals));
-% 
-% % 3. Create the full Linear Time-Invariant (LTI) State-Space model
-% sys_LCL = ss(A_num, B_num, C_num, D_num);
-% 
-% % 4. Extract the Admittance Matrix Y(s)
-% % sys(outputs, inputs) -> sys([5, 6], [3, 4])
-% Y_sys = -sys_LCL(5:6, 3:4); 
-% 
-% % 5. Configure Bode Plot Options (ensuring log scale and Hz if preferred)
-% opts = bodeoptions('cstprefs');
-% opts.FreqUnits = 'Hz'; 
-% opts.MagUnits = 'dB';
-% opts.PhaseUnits = 'deg';
-% 
-% % 6. Plot
-% figure;
-% bode(Y_sys, opts);
-% grid on;
-% title('LCL Filter Admittance Y(s)');
-% 
 
+%% --- Extract Phase Data from CSV ---
+% angle() extracts the phase in radians from the complex data.
+% We multiply by 180/pi to convert to degrees. This is naturally wrapped to [-180, 180].
+csv_dd_phase = angle(csvData.Var2) * (180/pi);
+csv_dq_phase = angle(csvData.Var3) * (180/pi);
+csv_qd_phase = angle(csvData.Var4) * (180/pi);
+csv_qq_phase = angle(csvData.Var5) * (180/pi);
+
+% --- Extract, Correct, and Wrap Analytical Phase Data ---
+% 1. Extract raw unwrapped phase from Bode
+[~, phase_dd_raw] = bode(Y_dd, frequencies_rad);
+[~, phase_dq_raw] = bode(Y_dq, frequencies_rad);
+[~, phase_qd_raw] = bode(Y_qd, frequencies_rad);
+[~, phase_qq_raw] = bode(Y_qq, frequencies_rad);
+
+% 2. Squeeze into 1D arrays
+p_dd = squeeze(phase_dd_raw);
+p_dq = squeeze(phase_dq_raw);
+p_qd = squeeze(phase_qd_raw);
+p_qq = squeeze(phase_qq_raw);
+
+% 3. Apply 180-degree convention shift AND wrap to [-180, 180]
+phase_dd_wrapped = mod(p_dd, 360) - 180;
+phase_dq_wrapped = mod(p_dq, 360) - 180;
+phase_qd_wrapped = mod(p_qd, 360) - 180;
+phase_qq_wrapped = mod(p_qq, 360) - 180;
+
+% --- Plotting the Wrapped Admittance Phase ---
+figure('Color', 'w', 'Position', [150, 150, 1000, 700]); 
+sgtitle('Wrapped Frequency Response (Admittance Phase, DQ Domain)', 'Color', 'k', 'FontWeight', 'bold', 'FontSize', 16);
+
+% Set up a uniform Y-axis for all plots to match the scanner
+y_limits = [-200, 200];
+y_ticks = [-180, -90, 0, 90, 180];
+
+% --- TOP LEFT: Y_dd Phase ---
+subplot(2,2,1);
+semilogx(frequencies_Hz, phase_dd_wrapped); % Analytical
+hold on;
+semilogx(csv_f, csv_dd_phase, 'r--'); % CSV data
+hold off;
+grid on; 
+ylabel('Phase [deg]'); 
+title('dd');
+xlim([1, 10000]);
+ylim(y_limits);
+yticks(y_ticks);
+legend('Analytical', 'CSV Data', 'Location', 'best');
+
+% --- TOP RIGHT: Y_dq Phase ---
+subplot(2,2,2);
+semilogx(frequencies_Hz, phase_dq_wrapped);
+hold on;
+semilogx(csv_f, csv_dq_phase, 'r--');
+hold off;
+grid on; 
+title('dq');
+xlim([1, 10000]);
+ylim(y_limits);
+yticks(y_ticks);
+
+% --- BOTTOM LEFT: Y_qd Phase ---
+subplot(2,2,3);
+semilogx(frequencies_Hz, phase_qd_wrapped);
+hold on;
+semilogx(csv_f, csv_qd_phase, 'r--');
+hold off;
+grid on; 
+ylabel('Phase [deg]'); 
+xlabel('Frequency [Hz]');
+title('qd');
+xlim([1, 10000]);
+ylim(y_limits);
+yticks(y_ticks);
+
+% --- BOTTOM RIGHT: Y_qq Phase ---
+subplot(2,2,4);
+semilogx(frequencies_Hz, phase_qq_wrapped);
+hold on;
+semilogx(csv_f, csv_qq_phase, 'r--');
+hold off;
+grid on; 
+xlabel('Frequency [Hz]');
+title('qq');
+xlim([1, 10000]);
+ylim(y_limits);
+yticks(y_ticks);
