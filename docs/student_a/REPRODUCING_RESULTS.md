@@ -48,7 +48,7 @@ Run:
 
 `average_gfmi_pareto_analysis.m`
 
-This generates the accuracy-runtime Pareto figures using the final 2 µs-reference errors.
+This generates the accuracy-runtime Pareto figures using the final 0.1 µs-reference errors.
 
 ### 4. Average GFMI Rezonance comparison
 

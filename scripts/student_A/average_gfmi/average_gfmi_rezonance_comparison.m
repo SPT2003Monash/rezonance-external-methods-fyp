@@ -1,170 +1,130 @@
 % Name: Pahan Kitthangodage
 % Student ID: 33597863
-% Purpose: Compares selected average-GFMI Richardson admittance matrices against Rezonance results.
+% Purpose: Compares average-GFMI Richardson and Rezonance results.
 
 clear; clc; close all;
-%% Repository paths
+
+%% Paths
 scriptDir = fileparts(mfilename('fullpath'));
 repoRoot = fileparts(fileparts(fileparts(scriptDir)));
 
-averageDataRoot = fullfile(repoRoot, ...
-    'data', 'student_a', 'average_gfmi');
+dataFile = fullfile(repoRoot,'data','student_a','average_gfmi','op1','rezonance_inverter.csv');
+resultDir = fullfile(repoRoot,'data','student_a','average_gfmi','results','rezonance_comparison');
+figureDir = fullfile(repoRoot,'figures','student_a','average_gfmi');
 
-op1Folder = fullfile(averageDataRoot, 'op1');
+if ~isfolder(resultDir); mkdir(resultDir); end
+if ~isfolder(figureDir); mkdir(figureDir); end
 
-resultFolder = fullfile(averageDataRoot, ...
-    'results', 'rezonance_comparison');
-
-figureFolder = fullfile(repoRoot, ...
-    'figures', 'student_a', 'average_gfmi');
-
-if ~isfolder(op1Folder)
-    error('OP1 data folder not found:\n%s', op1Folder);
-end
-
-if ~isfolder(resultFolder)
-    mkdir(resultFolder);
-end
-
-if ~isfolder(figureFolder)
-    mkdir(figureFolder);
-end
-
-%% BASE ADMITTANCE ----------------------------------------------------------
-
-Sbase = 2e6;    % VA
-Vbase = 690;    % V line-line
-Ybase = Sbase / Vbase^2;
-
-fprintf('\n=== BASE ADMITTANCE ===\n');
-fprintf('Sbase = %.3f MVA, Vbase = %.3f kV, Ybase = %.9f S\n', Sbase/1e6, Vbase/1000, Ybase);
-
-%% REZONANCE DATA -------------------------------------------------------------
-
-freq  = [1 5 10];
+%% Rezonance results
+freq = [1 5 10];
 names = {'Ydd','Ydq','Yqd','Yqq'};
-method = {'p=1 Richardson (50 + 25 us)', 'Mixed h+h^2 RE (50 + 25 + 12.5 us)', 'Mixed h+h^2 RE (50 + 25 + 12.5 us)'};
+Ybase = 2e6/690^2;
 
-rezonanceFile = fullfile(op1Folder, 'rezonance_inverter.csv');
-if ~isfile(rezonanceFile)
-    error('Rezonance input file not found: %s', rezonanceFile);
+T = readtable(dataFile,'VariableNamingRule','preserve');
+RZpu = [toComplex(T.dd),toComplex(T.dq),toComplex(T.qd),toComplex(T.qq)];
+[~,idx] = ismember(freq,T.f);
+RZ = -Ybase*RZpu(idx,:);       % pu to Siemens and current-direction correction
+
+%% Direct 0.1 us reference
+refMag = [
+ 3.805087893  6.533549111 10.970783680 7.762708222
+ 6.336337503 12.241892992  9.094264464 9.455390447
+ 7.906670048 13.136877485 10.227463818 9.079387525];
+
+refPhase = [
+-164.836334 -118.939498 -4.758002  -61.323822
+-157.951183 -174.244815 -8.813936 -153.790456
+-154.421456  171.358587 -9.341142 -161.496981];
+
+REF = refMag.*exp(1j*deg2rad(refPhase));
+
+%% Selected mixed Richardson results
+reMag = [
+ 3.805187663  6.533628624 10.970854219 7.762753468
+ 6.336246268 12.241927847  9.094203690 9.455275573
+ 7.906333252 13.136621340 10.227415340 9.079086044];
+
+rePhase = [
+-164.835375 -118.939577 -4.758411  -61.323817
+-157.953834 -174.246412 -8.814431 -153.792448
+-154.423517  171.356349 -9.342690 -161.498808];
+
+RE = reMag.*exp(1j*deg2rad(rePhase));
+
+%% Errors against direct 0.1 us reference
+elementRE = 100*abs(RE-REF)./abs(REF);
+elementRZ = 100*abs(RZ-REF)./abs(REF);
+
+matrixRE = vecnorm(RE-REF,2,2)./vecnorm(REF,2,2)*100;
+matrixRZ = vecnorm(RZ-REF,2,2)./vecnorm(REF,2,2)*100;
+
+fprintf('\nFrequency   Mixed RE error   Rezonance error\n');
+for k = 1:3
+    fprintf('%5g Hz      %10.6f %%      %10.6f %%\n', ...
+        freq(k),matrixRE(k),matrixRZ(k));
 end
 
-RZraw = readtable(rezonanceFile, 'VariableNamingRule','preserve');
-RZall = [parseComplexCol(RZraw.dd), parseComplexCol(RZraw.dq), parseComplexCol(RZraw.qd), parseComplexCol(RZraw.qq)];
+%% Save results
+Results = table(freq',matrixRE,matrixRZ,...
+    'VariableNames',{'Frequency_Hz','Mixed_Error_pct','Rezonance_Error_pct'});
 
-[~,rowIdx] = ismember(freq, RZraw.f);
-if any(rowIdx==0)
-    error('Rezonance CSV is missing one of the requested frequencies: %s Hz', mat2str(freq(rowIdx==0)));
+writetable(Results,fullfile(resultDir,...
+    'Average_GFMI_Rezonance_comparison.csv'));
+
+%% Plots
+figure;
+for k = 1:3
+    subplot(1,3,k);
+    bar([abs(REF(k,:));abs(RE(k,:));abs(RZ(k,:))]');
+    grid on; title(sprintf('%g Hz',freq(k)));
+    set(gca,'XTickLabel',names);
+    if k == 1; ylabel('Admittance (S)'); end
 end
-RZ = RZall(rowIdx,:);              % rows = 1/5/10 Hz, columns = Ydd/Ydq/Yqd/Yqq
-RZ_mag = abs(RZ);
-RZ_phase = rad2deg(angle(RZ));
+legend('Direct 0.1 \mus','Mixed Richardson','Rezonance');
+sgtitle('Average GFMI admittance magnitude');
+exportgraphics(gcf,fullfile(figureDir,...
+    'average_gfmi_rezonance_magnitude.png'),'Resolution',300);
 
-%% SELECTED FINAL RICHARDSON RESULTS (Siemens, final corrected values) --------
+%% Phase comparison
+refPhase = rad2deg(angle(REF));
+rePhase  = rad2deg(angle(RE));
+rzPhase  = rad2deg(angle(RZ));
 
-RE_mag_S = [ 4.370935106,  6.520009587, 10.456836737, 8.290797808;
-             6.348082724, 13.068358501,  9.392693991, 9.657905288;
-             8.000908668, 13.788420374, 10.557171114, 9.011811423];
+figure;
+for k = 1:3
+    subplot(1,3,k);
+    bar([refPhase(k,:);rePhase(k,:);rzPhase(k,:)]');
+    grid on;
+    ylim([-180 180]);
+    yticks(-180:60:180);
+    set(gca,'XTickLabel',names);
+    title(sprintf('%g Hz',freq(k)));
 
-RE_phase_original = [-172.570424, -122.807407, -2.390393,  -54.329041;
-                      -159.062767, -175.199092, -7.712001, -151.414814;
-                      -154.878902,  169.596835, -9.409932, -159.237520];
-
-RE_S = RE_mag_S .* exp(1j*deg2rad(RE_phase_original));
-
-%% CONVERT TO pu + CURRENT-DIRECTION CORRECTION ------------------------------
-
-RE_corrected = -(RE_S / Ybase);
-RE_mag = abs(RE_corrected);
-RE_phase = rad2deg(angle(RE_corrected));
-
-%% DIFFERENCES ----------------------------------------------------------------
-
-magDifferencePct = 100 * abs(RE_mag - RZ_mag) ./ RZ_mag;
-phaseDifferenceDeg = rad2deg(angle(exp(1j*deg2rad(RE_phase - RZ_phase))));
-complexErrorPct = 100 * abs(RE_corrected - RZ) ./ abs(RZ);
-
-%% PRINT ELEMENT RESULTS -------------------------------------------------------
-
-fprintf('\n=== REZONANCE vs SELECTED RICHARDSON ===\n');
-for f = 1:numel(freq)
-    fprintf('\n--- %g Hz (%s) ---\n', freq(f), method{f});
-    for k = 1:4
-        fprintf('%s: RZ = %.5f<%.3fdeg | RE = %.5f<%.3fdeg | dMag=%.3f%% dPhase=%.3fdeg complexErr=%.3f%%\n', ...
-            names{k}, RZ_mag(f,k), RZ_phase(f,k), RE_mag(f,k), RE_phase(f,k), ...
-            magDifferencePct(f,k), phaseDifferenceDeg(f,k), complexErrorPct(f,k));
+    if k == 1
+        ylabel('Phase (degrees)');
     end
 end
 
-%% FULL 2x2 MATRIX ERROR (Frobenius norm) ---------------------------------------
+legend('Direct 0.1 \mus','Mixed Richardson','Rezonance',...
+    'Location','best');
 
-matrixErrorPct = zeros(3,1);
-fprintf('\n=== FULL-MATRIX ERROR vs REZONANCE ===\n');
-for f = 1:3
-    Yrz = reshape(RZ(f,:),2,2).';
-    Yre = reshape(RE_corrected(f,:),2,2).';
-    matrixErrorPct(f) = 100*norm(Yre-Yrz,'fro') / norm(Yrz,'fro');
-    fprintf('%g Hz = %.6f %%\n', freq(f), matrixErrorPct(f));
-end
+sgtitle('Average GFMI admittance phase comparison');
 
-%% SAVE RESULTS TABLES ----------------------------------------------------------
+exportgraphics(gcf,fullfile(figureDir,...
+    'average_gfmi_rezonance_phase.png'),'Resolution',300);
+figure;
+bar(freq,[matrixRE matrixRZ]);
+grid on;
+xlabel('Frequency (Hz)');
+ylabel('Full-matrix error (%)');
+legend('Mixed Richardson','Rezonance','Location','best');
+title('Error against direct 0.1 \mus reference');
+set(gca,'YScale','log');
+exportgraphics(gcf,fullfile(figureDir,...
+    'average_gfmi_rezonance_error.png'),'Resolution',300);
 
-Frequency = repelem(freq',4);
-Element = repmat(string(names)',3,1);
-
-ComparisonTable = table(Frequency, Element, ...
-    reshape(RZ_mag.',[],1), reshape(RZ_phase.',[],1), ...
-    reshape(RE_mag.',[],1), reshape(RE_phase.',[],1), ...
-    reshape(magDifferencePct.',[],1), reshape(phaseDifferenceDeg.',[],1), reshape(complexErrorPct.',[],1), ...
-    'VariableNames',{'Frequency','Element','Rezonance_Magnitude_pu','Rezonance_Phase_deg', ...
-    'Richardson_Magnitude_pu','Richardson_Phase_deg','Magnitude_Difference_pct', ...
-    'Phase_Difference_deg','Complex_Error_pct'});
-
-fprintf('\n=== FINAL COMPARISON TABLE ===\n\n');
-disp(ComparisonTable);
-comparisonFile = fullfile(resultFolder, 'Average_GFMI_Rezonance_vs_Richardson.csv');
-writetable(ComparisonTable, comparisonFile);
-
-MatrixErrorTable = table(freq', matrixErrorPct, 'VariableNames',{'Frequency_Hz','FullMatrix_Error_pct'});
-matrixErrorFile = fullfile(resultFolder,'Average_GFMI_Rezonance_vs_Richardson_MatrixError.csv');
-writetable(MatrixErrorTable, matrixErrorFile);
-
-fprintf('\nSaved:\n%s\n%s\n', comparisonFile, matrixErrorFile);
-
-%% PLOTS: MAGNITUDE AND PHASE ----------------------------------------------------
-
-plotComparison(RZ_mag, RE_mag, names, freq,'Admittance magnitude (pu)','Rezonance vs Richardson - Magnitude',fullfile(figureFolder,'average_gfmi_rezonance_vs_richardson_magnitude.png'));
-plotComparison(RZ_phase, RE_phase, names, freq,'Phase (deg)','Rezonance vs Richardson - Phase',fullfile(figureFolder,'average_gfmi_rezonance_vs_richardson_phase.png'));
-%% ============================ LOCAL FUNCTIONS ================================
-function plotComparison(rz, re, names, freq, yLabelText, figTitle, outputFile)
-    figure('Name', figTitle);
-    for f = 1:numel(freq)
-        subplot(1,numel(freq),f);
-        bar([rz(f,:)', re(f,:)']);
-        grid on; set(gca,'XTickLabel',names);
-        ylabel(yLabelText);
-        title(sprintf('%g Hz', freq(f)));
-        if f == 1; legend('Rezonance','Selected Richardson','Location','best'); end
-    end
-    sgtitle(figTitle);
-    exportgraphics(gcf, outputFile, 'Resolution', 300);
-end
-
-function z = parseComplexCol(col)
-    % Parses a table column of Python-style complex strings, e.g. '0.87+0.26j',
-    % into a MATLAB complex double column vector.
-    if isnumeric(col); z = double(col); return; end
-    col = string(col);
-    z = zeros(numel(col),1);
-    for k = 1:numel(col)
-        z(k) = parseComplexStr(col(k));
-    end
-end
-
-function z = parseComplexStr(s)
-    s = strtrim(char(s));
-    tok = regexp(s, '^([+-]?[\d.]+(?:[eE][+-]?\d+)?)([+-][\d.]+(?:[eE][+-]?\d+)?)j$', 'tokens', 'once');
-    if isempty(tok); error('Could not parse complex value: %s', s); end
-    z = str2double(tok{1}) + 1i*str2double(tok{2});
+%% Convert Python-style complex values
+function z = toComplex(x)
+    x = replace(string(x),"j","i");
+    z = arrayfun(@(s) str2num(char(s)),x);
 end

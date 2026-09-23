@@ -43,6 +43,7 @@ Filename pattern:
 - `dpert` — d-axis voltage perturbation
 - `qpert` — q-axis voltage perturbation
 - `50us`, `25us`, etc. — PSCAD solver timestep
+- `0p1us` — direct 0.1 µs held-out reference timestep
 - `OP2` — second operating point
 - `ref` — held-out reference case
 

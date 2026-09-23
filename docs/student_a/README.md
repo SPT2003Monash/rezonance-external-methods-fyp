@@ -34,7 +34,7 @@ Richardson inputs:
 
 Held-out validation reference:
 
-- 2 µs
+- 0.1 µs
 
 ## Switching GFMI timestep sequence
 
@@ -44,3 +44,4 @@ See `REPRODUCING_RESULTS.md` for the exact timestep sequence and scripts.
 
 - PSCAD 5.0.1
 - MATLAB
+- Rezonance
